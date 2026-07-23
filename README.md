@@ -10,7 +10,7 @@ una presentación retro inspirada en las páginas web clásicas.
 
 ## Sitio web publicado
 
-[Agregar aquí el enlace de Netlify cuando el sitio sea publicado](https://example.com)
+[Link Netlify - erashong-hoja-trabajo-1.netlify.app ](https://erashong-hoja-trabajo-1.netlify.app/)
 
 ## Estudiante
 
