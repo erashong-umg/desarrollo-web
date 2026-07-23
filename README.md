@@ -14,7 +14,7 @@ una presentación retro inspirada en las páginas web clásicas.
 
 ## Estudiante
 
-**Erick Orlando Rashón González**
+> Nombre:  **Erick Orlando Rashón González** <br/>Carnet: **9490-11-5609** <br>Sección: **B**
 
 ## Archivos
 
