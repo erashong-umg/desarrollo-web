@@ -4,7 +4,7 @@ Prototipo académico de un ecommerce de computadoras, componentes y periféricos
 
 ## Sitio publicado
 
-[Ver TecnoCore Guatemala en Netlify](AGREGAR_AQUI_EL_ENLACE_DE_NETLIFY)
+[Ver TecnoCore Guatemala en Netlify](https://erashong-tarea1-tecnocore.netlify.app/)
 
 ## Estudiante
 
