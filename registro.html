@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Formulario de registro demostrativo de TecnoCore Guatemala.">
+  <title>Crear cuenta | TecnoCore Guatemala</title>
+</head>
+
+<body>
+  <header>
+    <p><a href="index.html">TecnoCore Guatemala</a></p>
+    <nav aria-label="Navegación principal"><a href="index.html">Inicio</a> | <a href="catalogo.html">Catálogo</a> | <a
+        href="categorias.html">Categorías</a> | <a href="carrito.html">Carrito</a> | <a href="registro.html"
+        aria-current="page">Crear cuenta</a> | <a href="contacto.html">Contacto</a></nav>
+    <hr>
+  </header>
+  <main>
+    <h1>Crea tu cuenta de cliente</h1>
+    <p>Guarda tus preferencias en futuras fases del proyecto. Este formulario no envía ni almacena datos.</p>
+    <form action="#" method="post">
+      <fieldset>
+        <legend>Datos personales</legend>
+        <p><label for="registro-nombre">Nombre completo:</label><br><input type="text" id="registro-nombre"
+            name="nombre" autocomplete="name" required></p>
+        <p><label for="registro-fecha">Fecha de nacimiento:</label><br><input type="date" id="registro-fecha"
+            name="fecha_nacimiento"></p>
+        <p><label for="registro-telefono">Teléfono:</label><br><input type="tel" id="registro-telefono" name="telefono"
+            autocomplete="tel" pattern="[0-9]{8}" placeholder="8 dígitos"></p>
+      </fieldset>
+      <fieldset>
+        <legend>Acceso</legend>
+        <p><label for="registro-correo">Correo electrónico:</label><br><input type="email" id="registro-correo"
+            name="correo" autocomplete="email" required></p>
+        <p><label for="registro-clave">Contraseña:</label><br><input type="password" id="registro-clave" name="clave"
+            minlength="8" autocomplete="new-password" required></p>
+        <p><label for="registro-confirmar">Confirmar contraseña:</label><br><input type="password"
+            id="registro-confirmar" name="confirmar_clave" minlength="8" autocomplete="new-password" required></p>
+      </fieldset>
+      <fieldset>
+        <legend>Preferencias de tecnología</legend>
+        <p><label for="preferencia">Categoría favorita:</label><br><select id="preferencia" name="preferencia">
+            <option value="">Prefiero decidir después</option>
+            <option>Computadoras de escritorio</option>
+            <option>Laptops</option>
+            <option>Procesadores</option>
+            <option>Tarjetas gráficas</option>
+            <option>Tarjetas madre</option>
+            <option>Memoria RAM</option>
+            <option>Almacenamiento</option>
+            <option>Monitores</option>
+            <option>Periféricos</option>
+            <option>Redes</option>
+          </select></p>
+        <p><label><input type="checkbox" name="boletin"> Deseo recibir novedades y promociones de tecnología.</label></p>
+        <p><label><input type="checkbox" name="terminos" required> He leído los términos demostrativos del
+            prototipo.</label></p>
+      </fieldset>
+      <button type="submit">Crear cuenta de demostración</button> <button type="reset">Limpiar formulario</button>
+    </form>
+  </main>
+  <footer>
+    <hr>
+    <p><a href="index.html">Volver al inicio</a></p>
+    <iframe src="footer.html" title="Pie de página de TecnoCore Guatemala" width="100%" height="150" style="border:none;"></iframe>
+  </footer>
+</body>
+
+</html>
