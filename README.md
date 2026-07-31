@@ -1,24 +1,28 @@
-# Excursión al Lago de Atitlán
+# Desarrollo Web
 
-Página web informativa creada como **Hoja de Trabajo 1** para promocionar una
-excursión al Lago de Atitlán, Guatemala. Incluye una descripción del destino,
-un índice de navegación, una galería de imágenes, el itinerario de dos días,
-actividades adicionales y recomendaciones para el viaje.
+## Uso de la rama `main`
 
-El proyecto utiliza únicamente HTML. No contiene CSS ni JavaScript y emplea
-una presentación retro inspirada en las páginas web clásicas.
+La rama **`main`** está **reservada exclusivamente para el desarrollo y la entrega del proyecto final**.
 
-## Sitio web publicado
+**No se deben realizar commits ni desarrollar actividades directamente sobre esta rama.**
 
-[Link Netlify - erashong-hoja-trabajo-1.netlify.app ](https://erashong-hoja-trabajo-1.netlify.app/)
+Cada práctica, laboratorio o actividad deberá desarrollarse en su propia rama y, cuando corresponda, integrarse mediante un **Pull Request**.
 
-## Estudiante
+## Ramas disponibles
 
-> Nombre:  **Erick Orlando Rashón González** <br/>Carnet: **9490-11-5609** <br>Sección: **B**
+Actualmente el repositorio cuenta con las siguientes ramas:
 
-## Archivos
+* `main` *(Proyecto final)*
 
-- `index.html`: página principal de la excursión.
-- `src/img/`: imágenes locales del banner y la galería.
-- `README.md`: información general y enlace de publicación.
+> Agregue aquí las demás ramas del repositorio, por ejemplo:
+>
+> * `practica-1`
+> * `practica-2`
+> * `laboratorio-1`
+> * `feature/...`
 
+## Repositorio
+
+Repositorio oficial:
+
+* https://github.com/erashong-umg/desarrollo-web
