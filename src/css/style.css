@@ -455,3 +455,605 @@ footer iframe {
     padding: var(--spacing-2);
   }
 }
+
+/* ============================================
+   Animaciones estilo cyberpunk
+   ============================================ */
+
+/*
+  Títulos principales: respiración neón (glow que sube y baja como un tubo
+  de neón real) durante la mayor parte del ciclo, con una ráfaga de glitch
+  al final. Los pasos del glitch están separados por varios cientos de ms
+  (no por 1%) para que cada corte se alcance a ver.
+*/
+@keyframes neon-glitch {
+  0% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor,
+      0 0 10px currentColor,
+      0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5),
+      0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: ease-in-out;
+  }
+  35% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 2px currentColor,
+      0 0 5px currentColor,
+      0 0 9px currentColor,
+      0 0 18px rgba(252, 238, 10, .28),
+      0 0 34px rgba(255, 0, 60, .1);
+    animation-timing-function: ease-in-out;
+  }
+  70% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor,
+      0 0 10px currentColor,
+      0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5),
+      0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  74% {
+    clip-path: inset(10% 0 65% 0);
+    transform: translate(-6px, 0);
+    text-shadow: -3px 0 var(--color-cyan), 3px 0 var(--color-accent);
+    animation-timing-function: steps(1, end);
+  }
+  80% {
+    clip-path: inset(55% 0 8% 0);
+    transform: translate(5px, 0);
+    text-shadow: 3px 0 var(--color-accent), -3px 0 var(--color-cyan);
+    animation-timing-function: steps(1, end);
+  }
+  84% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  88% {
+    clip-path: inset(30% 0 45% 0);
+    transform: translate(-6px, 1px);
+    text-shadow: -4px 0 var(--color-cyan), 4px 0 var(--color-accent);
+    animation-timing-function: steps(1, end);
+  }
+  92% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  96% {
+    clip-path: inset(72% 0 3% 0);
+    transform: translate(4px, 0);
+    text-shadow: 4px 0 var(--color-accent), -4px 0 var(--color-cyan);
+    animation-timing-function: steps(1, end);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor,
+      0 0 10px currentColor,
+      0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5),
+      0 0 70px rgba(255, 0, 60, .22);
+  }
+}
+
+main h1 {
+  animation: neon-glitch 8s ease-in-out infinite;
+}
+
+/*
+  El banner del home usa su propio keyframe: ciclo más corto y muchos más
+  cortes repartidos por todo el recorrido (no solo al final), para que se
+  sienta como chisporroteo eléctrico en vez de un glitch ocasional.
+*/
+@keyframes banner-electric {
+  0% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: ease-in-out;
+  }
+  20% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 2px currentColor, 0 0 5px currentColor, 0 0 9px currentColor,
+      0 0 18px rgba(252, 238, 10, .28), 0 0 34px rgba(255, 0, 60, .1);
+    animation-timing-function: ease-in-out;
+  }
+  36% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  39% {
+    clip-path: inset(8% 0 70% 0);
+    transform: translate(-7px, 0);
+    text-shadow: -4px 0 var(--color-cyan), 4px 0 var(--color-accent);
+    animation-timing-function: steps(1, end);
+  }
+  41% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  42% {
+    clip-path: inset(58% 0 6% 0);
+    transform: translate(6px, 1px);
+    text-shadow: 4px 0 var(--color-accent), -4px 0 var(--color-cyan);
+    animation-timing-function: steps(1, end);
+  }
+  45% {
+    /* caída de potencia: el glow se apaga casi por completo un instante */
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow: 0 0 2px currentColor, 0 0 3px currentColor;
+    animation-timing-function: steps(1, end);
+  }
+  47% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  57% {
+    clip-path: inset(35% 0 40% 0);
+    transform: translate(-5px, 0);
+    text-shadow: -3px 0 var(--color-cyan), 3px 0 var(--color-accent);
+    animation-timing-function: steps(1, end);
+  }
+  59% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  60% {
+    clip-path: inset(70% 0 5% 0);
+    transform: translate(7px, -1px);
+    text-shadow: 3px 0 var(--color-accent), -3px 0 var(--color-cyan);
+    animation-timing-function: steps(1, end);
+  }
+  61% {
+    /* sacudida doble sin volver al reposo: aún más brusco */
+    clip-path: inset(20% 0 55% 0);
+    transform: translate(-6px, 1px);
+    text-shadow: -4px 0 var(--color-cyan), 4px 0 var(--color-accent);
+    animation-timing-function: steps(1, end);
+  }
+  63% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  74% {
+    /* segunda caída de potencia */
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow: 0 0 2px currentColor, 0 0 3px currentColor;
+    animation-timing-function: steps(1, end);
+  }
+  76% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  77% {
+    clip-path: inset(62% 0 8% 0);
+    transform: translate(5px, 0);
+    text-shadow: 4px 0 var(--color-accent), -4px 0 var(--color-cyan);
+    animation-timing-function: steps(1, end);
+  }
+  79% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  88% {
+    clip-path: inset(8% 0 70% 0);
+    transform: translate(-7px, 0);
+    text-shadow: -4px 0 var(--color-cyan), 4px 0 var(--color-accent);
+    animation-timing-function: steps(1, end);
+  }
+  90% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  91% {
+    clip-path: inset(58% 0 6% 0);
+    transform: translate(6px, 1px);
+    text-shadow: 4px 0 var(--color-accent), -4px 0 var(--color-cyan);
+    animation-timing-function: steps(1, end);
+  }
+  93% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+    animation-timing-function: steps(1, end);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    text-shadow:
+      0 0 4px currentColor, 0 0 10px currentColor, 0 0 18px currentColor,
+      0 0 38px rgba(252, 238, 10, .5), 0 0 70px rgba(255, 0, 60, .22);
+  }
+}
+
+.title-banner {
+  animation: banner-electric 3.4s ease-in-out infinite;
+}
+
+/* Respiración neón para textos secundarios (glow que sube y baja) */
+@keyframes neon-breathe {
+  0%, 100% {
+    text-shadow:
+      0 0 4px currentColor,
+      0 0 9px currentColor,
+      0 0 16px currentColor,
+      0 0 30px currentColor;
+  }
+  50% {
+    text-shadow:
+      0 0 2px currentColor,
+      0 0 5px currentColor,
+      0 0 9px currentColor,
+      0 0 16px currentColor;
+  }
+}
+
+main h2,
+legend,
+summary {
+  animation: neon-breathe 2.6s ease-in-out infinite;
+}
+
+/* Parpadeo tipo letrero de neón en el logotipo, combinado con su respiración */
+@keyframes neon-flicker {
+  0%, 3%, 6%, 100% { opacity: 1; }
+  4% { opacity: .4; }
+  5% { opacity: .85; }
+}
+
+.title a {
+  animation: neon-flicker 3s infinite, neon-breathe 1.8s ease-in-out infinite;
+}
+
+/*
+  Difuminación de luz: halo borroso detrás del logotipo y los títulos que
+  simula la luz que un tubo de neón real proyecta sobre la superficie
+  donde está montado.
+*/
+@keyframes neon-halo {
+  0%, 100% {
+    opacity: .15;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: .2;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.title,
+main h1,
+.title-banner {
+  position: relative;
+  padding: 12px;
+}
+
+.title::before,
+main h1::before,
+.title-banner::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 260%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(252, 238, 10, .22) 0%, rgba(252, 238, 10, .08) 45%, transparent 72%);
+  filter: blur(20px);
+  z-index: -1;
+  pointer-events: none;
+  animation: neon-halo 3.6s ease-in-out infinite;
+}
+
+/*
+  Vetas de ruido RGB tipo datamosh, sincronizadas con la ráfaga de
+  neon-glitch: aparecen y saltan de posición en los mismos porcentajes
+  (74/80/84/88/92/96%) para que se lean como parte del mismo corte.
+*/
+@keyframes neon-streaks {
+  0%, 70% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  74% {
+    opacity: .85;
+    background-position: -35% 0;
+  }
+  80% {
+    opacity: .5;
+    background-position: 60% 0;
+  }
+  84% {
+    opacity: .9;
+    background-position: -18% 0;
+  }
+  88% {
+    opacity: .4;
+    background-position: 42% 0;
+  }
+  92% {
+    opacity: .8;
+    background-position: -50% 0;
+  }
+  96% {
+    opacity: .3;
+    background-position: 22% 0;
+  }
+  99%, 100% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+}
+
+main h1::after,
+.title-banner::after {
+  content: "";
+  position: absolute;
+  inset: -35% -8%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 7px,
+      rgba(0, 240, 255, .55) 7px 8px,
+      transparent 8px 21px,
+      rgba(255, 0, 60, .5) 21px 22px,
+      transparent 22px 33px,
+      rgba(252, 238, 10, .45) 33px 34px,
+      transparent 34px 46px,
+      rgba(0, 240, 255, .35) 46px 47px,
+      transparent 47px 60px
+    );
+  background-size: 220% 100%;
+  animation: neon-streaks 8s steps(1, end) infinite;
+}
+
+/* Vetas del banner: mismo patrón irregular que banner-electric (ráfagas dobles + calmas variables) */
+@keyframes banner-streaks {
+  0%, 36% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  39% {
+    opacity: .85;
+    background-position: -35% 0;
+  }
+  41% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  42% {
+    opacity: .65;
+    background-position: 55% 0;
+  }
+  45% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  57% {
+    opacity: .9;
+    background-position: -50% 0;
+  }
+  59% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  60% {
+    opacity: .5;
+    background-position: 40% 0;
+  }
+  61% {
+    opacity: .75;
+    background-position: -22% 0;
+  }
+  63% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  77% {
+    opacity: .8;
+    background-position: -20% 0;
+  }
+  79% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  88% {
+    opacity: .85;
+    background-position: -35% 0;
+  }
+  90% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  91% {
+    opacity: .6;
+    background-position: 55% 0;
+  }
+  93%, 100% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+}
+
+.title-banner::after {
+  animation: banner-streaks 3.4s steps(1, end) infinite;
+}
+
+/* Pulso de resplandor en botones */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(252, 238, 10, .4); }
+  50% { box-shadow: 0 0 22px rgba(252, 238, 10, .7); }
+}
+
+@keyframes glow-pulse-cyan {
+  0%, 100% { box-shadow: 0 0 16px rgba(0, 240, 255, .6); }
+  50% { box-shadow: 0 0 26px rgba(0, 240, 255, .95); }
+}
+
+button {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+button:hover,
+button:focus {
+  animation: glow-pulse-cyan 1.3s ease-in-out infinite;
+}
+
+button[type="reset"],
+button[type="button"] {
+  animation: none;
+}
+
+button[type="reset"]:hover,
+button[type="button"]:hover {
+  animation: none;
+}
+
+/* Barrido de líneas de escaneo tipo CRT sobre toda la página */
+@keyframes scanline-move {
+  from { background-position: 0 0; }
+  to { background-position: 0 100px; }
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, .035) 0px,
+    rgba(255, 255, 255, .035) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  animation: scanline-move 8s linear infinite;
+}
+
+/* Entrada de paneles y filas al cargar la página */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main > section,
+main > article,
+main > aside {
+  animation: fade-in-up .6s ease both;
+}
+
+figure img {
+  animation: fade-in-up .7s ease both;
+}
+
+tbody tr {
+  animation: fade-in-up .45s ease both;
+}
+
+tbody tr:nth-child(1) { animation-delay: .05s; }
+tbody tr:nth-child(2) { animation-delay: .1s; }
+tbody tr:nth-child(3) { animation-delay: .15s; }
+tbody tr:nth-child(4) { animation-delay: .2s; }
+tbody tr:nth-child(5) { animation-delay: .25s; }
+tbody tr:nth-child(6) { animation-delay: .3s; }
+tbody tr:nth-child(7) { animation-delay: .35s; }
+tbody tr:nth-child(8) { animation-delay: .4s; }
+tbody tr:nth-child(9) { animation-delay: .45s; }
+tbody tr:nth-child(10) { animation-delay: .5s; }
+
+/* Respeta la preferencia de reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  main h1,
+  .title-banner,
+  .title a,
+  main h2,
+  legend,
+  summary,
+  button,
+  button:hover,
+  button:focus,
+  body::after,
+  main > section,
+  main > article,
+  main > aside,
+  figure img,
+  tbody tr {
+    animation: none;
+  }
+
+  .title::before,
+  main h1::before,
+  .title-banner::before,
+  main h1::after,
+  .title-banner::after {
+    display: none;
+  }
+}
