@@ -10,7 +10,7 @@ tipografía clara y layout responsivo). No contiene JavaScript.
 
 ## Sitio web publicado
 
-[Link Netlify - erashong-hoja-trabajo-1.netlify.app ](https://erashong-hoja-trabajo-2.netlify.app/)
+[Link Netlify - erashong-hoja-trabajo-2.netlify.app ](https://erashong-hoja-trabajo-2.netlify.app/)
 
 ## Estudiante
 
