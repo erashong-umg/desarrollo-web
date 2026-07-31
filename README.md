@@ -16,10 +16,10 @@ Actualmente el repositorio cuenta con las siguientes ramas:
 
 > Agregue aquí las demás ramas del repositorio, por ejemplo:
 >
-> * `practica-1`
-> * `practica-2`
-> * `laboratorio-1`
-> * `feature/...`
+> * `https://github.com/erashong-umg/desarrollo-web/tree/Tarea1`
+> * `https://github.com/erashong-umg/desarrollo-web/tree/Tarea2`
+> * `https://github.com/erashong-umg/desarrollo-web/tree/HojaTrabajo1`
+> * `https://github.com/erashong-umg/desarrollo-web/tree/HojaTrabajo2`
 
 ## Repositorio
 
