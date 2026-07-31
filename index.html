@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  <!-- Encabezado y navegación principal, se repite (con variantes de marcado) en todas las páginas -->
   <header class="header">
     <section class="content-menu">
     <p class="title"><a href="index.html" aria-label="Ir al inicio">TecnoCore Guatemala</a></p>
@@ -27,6 +28,7 @@
   </header>
 
   <main>
+    <!-- Banner hero: titulo con la fuente/efecto CyberwayRiders + imagen ilustrativa -->
     <section>
       <p><small>COMPUTADORAS · COMPONENTES · ENTREGA EN GUATEMALA · PROTOTIPO ACADÉMICO</small></p>
       <h1 class="title-banner">Construye la potencia que necesitas</h1>
@@ -41,6 +43,7 @@
       </figure>
     </section>
 
+    <!-- Productos recomendados: muestra de 3 filas, cada una enlaza al detalle o al catálogo filtrado -->
     <section aria-labelledby="destacados">
       <h2 id="destacados">Tecnología destacada</h2>
       <table border="1" cellpadding="10">
@@ -72,6 +75,7 @@
       </table>
     </section>
 
+    <!-- Explicacion breve del flujo de compra (demostrativo, sin pagos reales) -->
     <section>
       <h2>Comprar en TecnoCore</h2>
       <ol>
@@ -82,6 +86,7 @@
       <p><small>Este prototipo no procesa pagos ni almacena información.</small></p>
     </section>
 
+    <!-- Suscripción al boletin: formulario de un solo campo, no envia datos reales -->
     <aside>
       <h2>Novedades tecnológicas</h2>
       <form action="#" method="get">
@@ -91,6 +96,7 @@
       </form>
     </aside>
   </main>
+  <!-- Pie de pagina compartido: se carga via iframe desde footer.html en todas las paginas -->
   <footer>
     <iframe src="footer.html" title="Pie de página de TecnoCore Guatemala" width="100%" height="150" style="border:none;"></iframe>
   </footer>

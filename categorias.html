@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  <!-- Encabezado y navegación principal -->
   <header>
     <p><a href="index.html">TecnoCore Guatemala</a></p>
     <nav aria-label="Navegación principal">
@@ -25,6 +26,11 @@
   <main>
     <h1>Explora por categoría</h1>
     <p>Encuentra la tecnología adecuada para estudiar, trabajar, crear o jugar.</p>
+    <!--
+      Una <section> por categoría (10 en total, separadas por <hr>). Cada
+      "Ver más" enlaza a catalogo.html#id, apuntando a la fila con ese id
+      dentro de la tabla del catálogo.
+    -->
     <section>
       <h2>Computadoras de escritorio</h2>
       <p>Equipos armados y listos para trabajar, crear o jugar.</p>
@@ -125,6 +131,7 @@
       <p><a href="catalogo.html#redes">Ver productos de redes</a></p>
     </section>
   </main>
+  <!-- Pie de página compartido: se carga vía iframe desde footer.html -->
   <footer>
     <hr>
     <p><a href="index.html">Volver al inicio</a></p>

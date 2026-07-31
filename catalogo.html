@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  <!-- Encabezado y navegación principal -->
   <header>
     <p>
       <a href="index.html">TecnoCore Guatemala</a>
@@ -27,6 +28,7 @@
   <main>
     <h1>Catálogo de computadoras y componentes</h1>
     <p>Consulta nuestra selección. Los controles forman parte del prototipo y no realizan búsquedas reales.</p>
+    <!-- Filtro de búsqueda demostrativo: no ejecuta ninguna búsqueda real -->
     <form action="#" method="get" role="search">
       <fieldset>
         <legend>Buscar y filtrar</legend>
@@ -50,6 +52,12 @@
       </fieldset>
     </form>
 
+    <!--
+      Tabla del catálogo completo. Varios <tr> tienen id (escritorio,
+      laptop-pro, tarjeta-grafica, procesadores, tarjetas-madre,
+      perifericos, redes) para que categorias.html pueda enlazar
+      directamente a esa fila con un ancla (#id).
+    -->
     <table border="1" cellpadding="10">
       <caption>20 productos disponibles en 10 categorías</caption>
       <thead>
@@ -228,6 +236,7 @@
       </tbody>
     </table>
   </main>
+  <!-- Pie de pagina compartido: se carga via iframe desde footer.html -->
   <footer>
     <hr>
     <p><a href="index.html">Volver al inicio</a></p>

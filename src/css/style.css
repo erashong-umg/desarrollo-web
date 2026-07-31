@@ -1,5 +1,21 @@
+/*
+  style.css — TecnoCore Guatemala (tema cyberpunk)
+
+  Índice:
+  1. Fuentes (Google Fonts + fuente local CyberwayRiders)
+  2. Reset de estilos
+  3. Variables de diseño (:root)
+  4. Tipografía base y asignación de fuentes por elemento
+  5. Fondo y layout general (body, header, main, footer)
+  6. Componentes (enlaces, tablas, formularios, botones, imágenes/detalles)
+  7. Responsive
+  8. Animaciones estilo cyberpunk (glitch, neón, scanlines, entradas)
+*/
+
+/* Tipografías de Google Fonts usadas en toda la interfaz */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
+/* Fuente personalizada (angular/desgastada) para el logotipo y el banner del home */
 @font-face {
   font-family: 'CyberwayRiders';
   src: url('../fonts/CyberwayRiders.ttf') format('truetype');
@@ -55,12 +71,14 @@ table {
 
 
 
+/* Modelo de caja consistente: padding/border no aumentan el ancho declarado */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* Paleta, radios y espaciados reutilizados en todo el sitio */
 :root {
   --color-primary: #fcee0a;
   --color-primary-dark: #d6cc00;
@@ -86,11 +104,13 @@ table {
   --shadow: 0 0 0 1px var(--color-gray-200), 0 0 18px rgba(252, 238, 10, .08);
 }
 
+/* Rajdhani como fuente de lectura (párrafos, labels, celdas) */
 html {
   font-family: 'Rajdhani', "Segoe UI", Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.5;
 }
 
+/* Orbitron (más técnica) para títulos, navegación y controles */
 header nav a,
 main h1,
 main h2,
@@ -103,8 +123,9 @@ button {
 }
 
 
+/* Logotipo del header y banner del home: fuente angular CyberwayRiders */
 .title-banner {
-	font-family: 'CyberwayRiders', 'Orbitron', 'Rajdhani', sans-serif;	
+	font-family: 'CyberwayRiders', 'Orbitron', 'Rajdhani', sans-serif;
 	 word-spacing: 0.75em;
 }
 
@@ -112,6 +133,7 @@ button {
   font-family: 'CyberwayRiders', 'Orbitron', 'Rajdhani', sans-serif;
 }
 
+/* Fondo de página: rejilla sutil + resplandores radiales de color (ambientación cyberpunk) */
 body {
   margin: 0;
   min-height: 100vh;
@@ -345,6 +367,7 @@ input[type="checkbox"] {
   margin-top: 0;
 }
 
+/* Botones: forma "cortada" (clip-path) característica del estilo cyberpunk */
 button {
   align-self: flex-start;
   cursor: pointer;
@@ -446,6 +469,7 @@ footer iframe {
   border: none;
 }
 
+/* Pantallas angostas: reduce el padding para aprovechar el ancho disponible */
 @media (max-width: 640px) {
   main {
     padding: var(--spacing-3) var(--spacing-2);
@@ -939,7 +963,11 @@ main h1::after,
   animation: banner-streaks 3.4s steps(1, end) infinite;
 }
 
-/* Pulso de resplandor en botones */
+/*
+  Pulso de resplandor en botones: la sombra respira en reposo (amarillo) y
+  respira más rápido en hover/focus (cian). Los botones secundarios
+  (reset/button) quedan estáticos para no competir visualmente con el CTA.
+*/
 @keyframes glow-pulse {
   0%, 100% { box-shadow: 0 0 12px rgba(252, 238, 10, .4); }
   50% { box-shadow: 0 0 22px rgba(252, 238, 10, .7); }
@@ -992,7 +1020,11 @@ body::after {
   animation: scanline-move 8s linear infinite;
 }
 
-/* Entrada de paneles y filas al cargar la página */
+/*
+  Entrada de paneles y filas al cargar la página: suben y aparecen con un
+  ligero desfase. "both" conserva el estado inicial (opacity:0) antes de
+  que arranque la animación, evitando un parpadeo del contenido.
+*/
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -1018,6 +1050,7 @@ tbody tr {
   animation: fade-in-up .45s ease both;
 }
 
+/* Escalonado manual por fila (nth-child) para que no entren todas a la vez */
 tbody tr:nth-child(1) { animation-delay: .05s; }
 tbody tr:nth-child(2) { animation-delay: .1s; }
 tbody tr:nth-child(3) { animation-delay: .15s; }
