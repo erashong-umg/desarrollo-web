@@ -3,8 +3,9 @@
 Prototipo académico de un ecommerce de computadoras, componentes y periféricos desarrollado exclusivamente con HTML nativo. No utiliza CSS, JavaScript, frameworks ni dependencias. Los formularios representan la futura interfaz de captura y no procesan ni almacenan datos.
 
 ## Sitio publicado
+### Tarea 2
 
-[Ver TecnoCore Guatemala en Netlify](https://erashong-tarea1-tecnocore.netlify.app/)
+[Ver TecnoCore Guatemala en Netlify](https://erashong-tarea2-tecnocore.netlify.app/)
 
 ## Estudiante
 
