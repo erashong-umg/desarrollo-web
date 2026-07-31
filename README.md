@@ -12,14 +12,11 @@ Cada práctica, laboratorio o actividad deberá desarrollarse en su propia rama 
 
 Actualmente el repositorio cuenta con las siguientes ramas:
 
-* `main` *(Proyecto final)*
-
-> Agregue aquí las demás ramas del repositorio, por ejemplo:
->
-> * `https://github.com/erashong-umg/desarrollo-web/tree/Tarea1`
-> * `https://github.com/erashong-umg/desarrollo-web/tree/Tarea2`
-> * `https://github.com/erashong-umg/desarrollo-web/tree/HojaTrabajo1`
-> * `https://github.com/erashong-umg/desarrollo-web/tree/HojaTrabajo2`
+* [`main`](https://github.com/erashong-umg/desarrollo-web/tree/main) *(Proyecto final)*
+* [`Tarea1`](https://github.com/erashong-umg/desarrollo-web/tree/Tarea1)
+* [`HojaTrabajo1`](https://github.com/erashong-umg/desarrollo-web/tree/HojaTrabajo1)
+* [`HojaTrabajo2`](https://github.com/erashong-umg/desarrollo-web/tree/HojaTrabajo2)
+* [`Tarea2`](https://github.com/erashong-umg/desarrollo-web/tree/Tarea2)
 
 ## Repositorio
 
