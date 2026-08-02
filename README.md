@@ -14,10 +14,10 @@ Actualmente el repositorio cuenta con las siguientes ramas:
 
 * [`main`](https://github.com/erashong-umg/desarrollo-web/tree/main) *(Proyecto final)*
 * [`Tarea1`](https://github.com/erashong-umg/desarrollo-web/tree/Tarea1)
+* [`Tarea2`](https://github.com/erashong-umg/desarrollo-web/tree/Tarea2)
 * [`HojaTrabajo1`](https://github.com/erashong-umg/desarrollo-web/tree/HojaTrabajo1)
 * [`HojaTrabajo2`](https://github.com/erashong-umg/desarrollo-web/tree/HojaTrabajo2)
-* [`Tarea2`](https://github.com/erashong-umg/desarrollo-web/tree/Tarea2)
-
+* [`HojaTrabajo3`](https://github.com/erashong-umg/desarrollo-web/tree/HojaTrabajo3)
 ## Repositorio
 
 Repositorio oficial:
