@@ -12,6 +12,7 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="src/css/style.css">
+  <script src="src/js/app.js" defer></script>
 </head>
 
 <body>
@@ -38,7 +39,9 @@
       <li><a href="#galeria">Galería de imágenes</a></li>
       <li><a href="#itinerario">Tabla de itinerarios</a></li>
       <li><a href="#actividades">Lista de actividades</a></li>
-      <li><a href="#recomendaciones">Recomendaciones para el viaje</a></li>
+      <li><a href="#cotizador">Cotiza tu viaje</a></li>
+      <li><a href="#opiniones">Opiniones de visitantes</a></li>
+      <li><a href="#reservacion">Reservación</a></li>
       <li><a href="#autor">Pie de página y autor</a></li>
     </ol>
   </nav>
@@ -64,74 +67,75 @@
 
     <section id="galeria" class="section">
       <h2>Galería de imágenes</h2>
-      <p class="section-intro">Paisajes y cultura alrededor del lago</p>
+      <p class="section-intro">Haz clic sobre cualquier fotografía para verla en grande</p>
 
       <div class="gallery">
         <figure>
-          <a href="#lightbox-panoramica" aria-label="Ampliar: Vista panorámica del Lago de Atitlán">
+          <button type="button" class="gallery-trigger"
+            data-full="src/img/lago-panoramica-1200.jpg"
+            data-titulo="Vista panorámica del Lago de Atitlán"
+            data-descripcion="Mirador sobre el lago con los tres volcanes al fondo; el punto fotográfico más conocido de Sololá."
+            aria-label="Ampliar: Vista panorámica del Lago de Atitlán">
             <picture>
               <source srcset="src/img/lago-panoramica-640.jpg 640w, src/img/lago-panoramica-1200.jpg 1200w" sizes="45vw">
               <img src="src/img/lago-panoramica-640.jpg" loading="lazy" decoding="async"
                 alt="Vista panorámica del Lago de Atitlán">
             </picture>
-          </a>
+          </button>
           <figcaption>Vista panorámica del Lago de Atitlán</figcaption>
         </figure>
         <figure>
-          <a href="#lightbox-volcanes" aria-label="Ampliar: El lago rodeado de volcanes">
+          <button type="button" class="gallery-trigger"
+            data-full="src/img/lago-volcanes-1200.jpg"
+            data-titulo="El lago rodeado de volcanes"
+            data-descripcion="Los volcanes Atitlán, Tolimán y San Pedro enmarcan las aguas azules durante el recorrido en lancha."
+            aria-label="Ampliar: El lago rodeado de volcanes">
             <picture>
               <source srcset="src/img/lago-volcanes-640.jpg 640w, src/img/lago-volcanes-1200.jpg 1200w" sizes="45vw">
               <img src="src/img/lago-volcanes-640.jpg" loading="lazy" decoding="async"
                 alt="El lago rodeado de volcanes">
             </picture>
-          </a>
+          </button>
           <figcaption>El lago rodeado de volcanes</figcaption>
         </figure>
         <figure>
-          <a href="#lightbox-panajachel" aria-label="Ampliar: Paisaje de Panajachel">
+          <button type="button" class="gallery-trigger"
+            data-full="src/img/panajachel-1200.jpg"
+            data-titulo="Panajachel, puerta de entrada al lago"
+            data-descripcion="Punto de partida de la excursión: mercado artesanal, muelles y la concurrida Calle Santander."
+            aria-label="Ampliar: Paisaje de Panajachel">
             <picture>
               <source srcset="src/img/panajachel-640.jpg 640w, src/img/panajachel-1200.jpg 1200w" sizes="45vw">
               <img src="src/img/panajachel-640.jpg" loading="lazy" decoding="async"
                 alt="Paisaje de Panajachel">
             </picture>
-          </a>
+          </button>
           <figcaption>Panajachel, puerta de entrada al lago</figcaption>
         </figure>
         <figure>
-          <a href="#lightbox-sanjuan" aria-label="Ampliar: San Juan La Laguna">
+          <button type="button" class="gallery-trigger"
+            data-full="src/img/san-juan-1200.jpg"
+            data-titulo="Calles y cultura de San Juan La Laguna"
+            data-descripcion="Pueblo de murales, cooperativas de tejido con tintes naturales y talleres artesanales de cacao."
+            aria-label="Ampliar: San Juan La Laguna">
             <picture>
               <source srcset="src/img/san-juan-640.jpg 640w, src/img/san-juan-1200.jpg 1000w" sizes="45vw">
               <img src="src/img/san-juan-640.jpg" loading="lazy" decoding="async"
                 alt="San Juan La Laguna">
             </picture>
-          </a>
+          </button>
           <figcaption>Calles y cultura de San Juan La Laguna</figcaption>
         </figure>
       </div>
 
-      <dialog id="lightbox-panoramica" class="lightbox" aria-label="Vista panorámica del Lago de Atitlán, imagen ampliada">
-        <a href="#galeria" class="lightbox-backdrop" aria-hidden="true" tabindex="-1"></a>
-        <a href="#galeria" class="lightbox-close" aria-label="Cerrar imagen ampliada">&times;</a>
-        <img src="src/img/lago-panoramica-1200.jpg" loading="lazy" decoding="async" alt="Vista panorámica del Lago de Atitlán">
-        <p class="lightbox-caption">Vista panorámica del Lago de Atitlán</p>
-      </dialog>
-      <dialog id="lightbox-volcanes" class="lightbox" aria-label="El lago rodeado de volcanes, imagen ampliada">
-        <a href="#galeria" class="lightbox-backdrop" aria-hidden="true" tabindex="-1"></a>
-        <a href="#galeria" class="lightbox-close" aria-label="Cerrar imagen ampliada">&times;</a>
-        <img src="src/img/lago-volcanes-1200.jpg" loading="lazy" decoding="async" alt="El lago rodeado de volcanes">
-        <p class="lightbox-caption">El lago rodeado de volcanes</p>
-      </dialog>
-      <dialog id="lightbox-panajachel" class="lightbox" aria-label="Paisaje de Panajachel, imagen ampliada">
-        <a href="#galeria" class="lightbox-backdrop" aria-hidden="true" tabindex="-1"></a>
-        <a href="#galeria" class="lightbox-close" aria-label="Cerrar imagen ampliada">&times;</a>
-        <img src="src/img/panajachel-1200.jpg" loading="lazy" decoding="async" alt="Paisaje de Panajachel">
-        <p class="lightbox-caption">Panajachel, puerta de entrada al lago</p>
-      </dialog>
-      <dialog id="lightbox-sanjuan" class="lightbox" aria-label="San Juan La Laguna, imagen ampliada">
-        <a href="#galeria" class="lightbox-backdrop" aria-hidden="true" tabindex="-1"></a>
-        <a href="#galeria" class="lightbox-close" aria-label="Cerrar imagen ampliada">&times;</a>
-        <img src="src/img/san-juan-1200.jpg" loading="lazy" decoding="async" alt="San Juan La Laguna">
-        <p class="lightbox-caption">Calles y cultura de San Juan La Laguna</p>
+      <!-- Visor único: JavaScript le carga la imagen, el título y la descripción -->
+      <dialog id="modal-galeria" class="lightbox" aria-labelledby="modal-titulo">
+        <button type="button" class="lightbox-close" data-cerrar-modal aria-label="Cerrar imagen ampliada">&times;</button>
+        <img id="modal-imagen" src="" alt="">
+        <div class="lightbox-info">
+          <h3 id="modal-titulo"></h3>
+          <p id="modal-descripcion"></p>
+        </div>
       </dialog>
 
       <p class="credits">
@@ -217,7 +221,14 @@
     <section class="two-col">
       <div id="actividades" class="section">
         <h2>Lista de actividades</h2>
-        <ul>
+
+        <div class="filtro">
+          <label for="filtro-actividades">Buscar actividad</label>
+          <input type="text" id="filtro-actividades" placeholder="Ej. kayak, café, artesanías…"
+            autocomplete="off">
+        </div>
+
+        <ul id="lista-actividades">
           <li>Realizar caminatas por senderos y miradores.</li>
           <li>Practicar kayak en zonas autorizadas del lago.</li>
           <li>Visitar galerías de arte y murales comunitarios.</li>
@@ -227,6 +238,10 @@
           <li>Comprar artesanías elaboradas por artistas locales.</li>
           <li>Aprender sobre tintes naturales y tejidos mayas.</li>
         </ul>
+
+        <p id="filtro-sin-resultados" class="aviso oculto" role="status">
+          No se encontraron actividades con ese término.
+        </p>
       </div>
       <div id="recomendaciones" class="section">
         <h2>Recomendaciones</h2>
@@ -241,13 +256,111 @@
       </div>
     </section>
 
-    <p class="back-link"><a href="#inicio">Regresar al inicio</a></p>
+    <section id="cotizador" class="section">
+      <h2>Cotiza tu viaje</h2>
+      <p class="section-intro">Calcula el precio estimado de tu excursión sin salir de la página</p>
+
+      <form id="form-cotizador" class="formulario" novalidate>
+        <div class="campo">
+          <label for="asistentes">Número de asistentes</label>
+          <input type="number" id="asistentes" name="asistentes" min="1" max="40" value="1" required>
+        </div>
+
+        <div class="campo">
+          <label for="paquete">Tipo de paquete</label>
+          <select id="paquete" name="paquete">
+            <option value="350">Básico &mdash; recorrido en lancha (Q350 por persona)</option>
+            <option value="550" selected>Cultural &mdash; lancha y pueblos mayas (Q550 por persona)</option>
+            <option value="750">Aventura &mdash; kayak y senderismo (Q750 por persona)</option>
+            <option value="950">Premium &mdash; dos días con hospedaje (Q950 por persona)</option>
+          </select>
+        </div>
+
+        <fieldset class="campo campo-completo">
+          <legend>Servicios adicionales</legend>
+          <label class="check"><input type="checkbox" class="extra" value="120" data-nombre="Transporte incluido"> Transporte incluido (Q120 por persona)</label>
+          <label class="check"><input type="checkbox" class="extra" value="90" data-nombre="Alimentación completa"> Alimentación completa (Q90 por persona)</label>
+          <label class="check"><input type="checkbox" class="extra" value="60" data-nombre="Equipo de kayak"> Equipo de kayak (Q60 por persona)</label>
+          <label class="check"><input type="checkbox" class="extra" value="75" data-nombre="Guía bilingüe"> Guía bilingüe (Q75 por persona)</label>
+        </fieldset>
+
+        <div class="campo campo-completo acciones">
+          <button type="submit" class="btn">Calcular Total</button>
+          <button type="reset" class="btn btn-secundario">Limpiar</button>
+        </div>
+      </form>
+
+      <div id="resultado-cotizacion" class="resultado oculto" role="status" aria-live="polite"></div>
+
+      <p class="back-link"><a href="#inicio">Regresar al inicio</a></p>
+    </section>
+
+    <section id="opiniones" class="section">
+      <h2>Opiniones de nuestros visitantes</h2>
+      <p class="section-intro">Testimonios reales de quienes ya vivieron la excursión</p>
+
+      <article class="testimonio" id="tarjeta-testimonio">
+        <p class="testimonio-texto" id="testimonio-texto">&mdash;</p>
+        <p class="testimonio-autor" id="testimonio-autor">&mdash;</p>
+      </article>
+
+      <div class="acciones acciones-centro">
+        <button type="button" class="btn" id="btn-testimonio">Ver otra opinión</button>
+      </div>
+
+      <p class="back-link"><a href="#inicio">Regresar al inicio</a></p>
+    </section>
+
+    <section id="reservacion" class="section">
+      <h2>Reserva tu lugar</h2>
+      <p class="section-intro">Completa el formulario y te contactaremos para confirmar</p>
+
+      <form id="form-reservacion" class="formulario" novalidate>
+        <div class="campo">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej. Ana Gómez" required>
+          <span class="error" data-error-de="nombre"></span>
+        </div>
+
+        <div class="campo">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+          <span class="error" data-error-de="correo"></span>
+        </div>
+
+        <div class="campo">
+          <label for="personas">Número de personas</label>
+          <input type="number" id="personas" name="personas" min="1" max="40" required>
+          <span class="error" data-error-de="personas"></span>
+        </div>
+
+        <div class="campo">
+          <label for="fecha">Fecha preferida</label>
+          <input type="date" id="fecha" name="fecha" required>
+          <span class="error" data-error-de="fecha"></span>
+        </div>
+
+        <div class="campo campo-completo">
+          <label for="comentarios">Comentarios (opcional)</label>
+          <textarea id="comentarios" name="comentarios" rows="3"
+            placeholder="Cuéntanos si necesitas algo especial"></textarea>
+        </div>
+
+        <div class="campo campo-completo acciones">
+          <button type="submit" class="btn">Enviar solicitud</button>
+        </div>
+      </form>
+
+      <div id="confirmacion-reserva" class="resultado oculto" role="status" aria-live="polite"></div>
+
+      <p class="back-link"><a href="#inicio">Regresar al inicio</a></p>
+    </section>
   </main>
 
   <footer id="autor" class="site-footer">
     <p><strong>Página desarrollada por: Erick Orlando Rashón González</strong></p>
     <p><strong>Carnet: 9490-11-5609</strong></p>
-    <p>Hoja de Trabajo 2 &mdash; Desarrollo Web &mdash; 2026</p>
+    <p>Hoja de Trabajo 3 &mdash; Desarrollo Web &mdash; 2026</p>
     <p><a href="#inicio">Volver al inicio</a></p>
   </footer>
 </body>
