@@ -17,7 +17,7 @@ export default function Categorias() {
             <Accordion.Item eventKey={String(index)} key={category.slug}>
               <Accordion.Header>
                 {category.name}{' '}
-                <Badge bg="warning" text="dark" className="ms-2">
+                <Badge bg="primary" className="ms-2">
                   {categoryProducts.length}
                 </Badge>
               </Accordion.Header>
@@ -35,11 +35,11 @@ export default function Categorias() {
                       <span>
                         {product.name} — {product.specs}
                       </span>
-                      <strong className="text-warning">{formatQuetzales(product.price)}</strong>
+                      <strong className="tc-price">{formatQuetzales(product.price)}</strong>
                     </ListGroup.Item>
                   ))}
                 </ListGroup>
-                <Button as={Link} to={`/catalogo?categoria=${category.slug}`} variant="outline-light" size="sm">
+                <Button as={Link} to={`/catalogo?categoria=${category.slug}`} variant="outline-primary" size="sm">
                   Ver {category.name.toLowerCase()} en el catálogo
                 </Button>
               </Accordion.Body>

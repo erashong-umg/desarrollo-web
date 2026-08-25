@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, Modal, Row, Table } from 'react-bootstrap
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { formatQuetzales } from '../data/products'
+import { getProductThumbnail } from '../utils/productImages'
 
 export default function Carrito() {
   const { items, updateQuantity, removeItem, totalPrice, clearCart } = useCart()
@@ -38,6 +39,7 @@ export default function Carrito() {
             <caption>Resumen de productos seleccionados</caption>
             <thead>
               <tr>
+                <th scope="col"></th>
                 <th scope="col">Producto</th>
                 <th scope="col">Precio unitario</th>
                 <th scope="col">Cantidad</th>
@@ -46,8 +48,24 @@ export default function Carrito() {
               </tr>
             </thead>
             <tbody>
-              {items.map(({ product, quantity }) => (
+              {items.map(({ product, quantity }) => {
+                const thumbnail = product.image?.jpg ?? getProductThumbnail(product.thumbnail)
+                return (
                 <tr key={product.id}>
+                  <td>
+                    {thumbnail && (
+                      <Link to={`/producto/${product.id}`}>
+                        <img
+                          src={thumbnail}
+                          alt=""
+                          className="thumb"
+                          width={56}
+                          height={56}
+                          style={{ objectFit: 'cover', borderRadius: 'var(--radius)' }}
+                        />
+                      </Link>
+                    )}
+                  </td>
                   <td>
                     <Link to={`/producto/${product.id}`} className="fw-bold text-decoration-none">
                       {product.name}
@@ -73,11 +91,12 @@ export default function Carrito() {
                     </Button>
                   </td>
                 </tr>
-              ))}
+                )
+              })}
             </tbody>
             <tfoot>
               <tr>
-                <th scope="row" colSpan={3}>
+                <th scope="row" colSpan={4}>
                   Total estimado
                 </th>
                 <td colSpan={2}>

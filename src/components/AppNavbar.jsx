@@ -27,7 +27,7 @@ export default function AppNavbar() {
               <Nav.Link key={link.to} as={NavLink} to={link.to} end={link.end}>
                 {link.label}
                 {link.to === '/carrito' && totalItems > 0 && (
-                  <Badge bg="warning" text="dark" className="ms-2">
+                  <Badge bg="primary" className="ms-2">
                     {totalItems}
                   </Badge>
                 )}

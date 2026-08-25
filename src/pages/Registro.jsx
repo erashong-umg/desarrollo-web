@@ -19,7 +19,7 @@ export default function Registro() {
 
       {submitted ? (
         <div className="tc-panel p-4">
-          <p className="mb-0 text-cyan">
+          <p className="mb-0 text-success">
             Cuenta de demostración creada. Ningún dato fue enviado a un servidor real.
           </p>
         </div>
@@ -104,7 +104,7 @@ export default function Registro() {
             <Button type="submit" variant="primary">
               Crear cuenta de demostración
             </Button>
-            <Button type="reset" variant="outline-light">
+            <Button type="reset" variant="outline-primary">
               Limpiar formulario
             </Button>
           </div>

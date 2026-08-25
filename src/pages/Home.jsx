@@ -27,11 +27,11 @@ export default function Home() {
               backgroundPosition: 'center',
             }}
           >
-            <Container>
-              <p className="text-secondary mb-2">
+            <Container className="text-white">
+              <p className="text-white-50 mb-2">
                 <small>COMPUTADORAS · COMPONENTES · ENTREGA EN GUATEMALA · PROTOTIPO ACADÉMICO</small>
               </p>
-              <h1 className="brand-font display-5">Construye la potencia que necesitas</h1>
+              <h1 className="brand-font display-5 text-white">Construye la potencia que necesitas</h1>
               <p className="mb-3">
                 Encuentra computadoras listas para usar, componentes para actualizar tu equipo y periféricos
                 para completar tu espacio de trabajo o juego.
@@ -54,7 +54,7 @@ export default function Home() {
                 </p>
                 <h2 className="h3">{product.name}</h2>
                 <p>{product.specs}</p>
-                <p className="fs-4 fw-bold text-warning">{formatQuetzales(product.price)}</p>
+                <p className="fs-4 tc-price">{formatQuetzales(product.price)}</p>
                 <Button as={Link} to={`/producto/${product.id}`} variant="primary">
                   Ver detalle
                 </Button>
@@ -96,7 +96,7 @@ export default function Home() {
             <section className="tc-panel p-4 h-100">
               <h2 className="h4 mb-3">Novedades tecnológicas</h2>
               {subscribed ? (
-                <p className="text-cyan mb-0">¡Gracias! Ya estás en la lista de novedades de demostración.</p>
+                <p className="text-success mb-0">¡Gracias! Ya estás en la lista de novedades de demostración.</p>
               ) : (
                 <Form onSubmit={handleSubscribe}>
                   <Form.Group controlId="boletin-correo" className="mb-3">
