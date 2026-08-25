@@ -1,109 +1,13 @@
 <!doctype html>
 <html lang="es">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="TecnoCore Guatemala, ecommerce de computadoras, componentes y periféricos.">
-  <link rel="stylesheet" href="src/css/style.css"   />
-  <title>Inicio | TecnoCore Guatemala</title>
-</head>
-
-<body>
-  <!-- Encabezado y navegación principal, se repite (con variantes de marcado) en todas las páginas -->
-  <header class="header">
-    <section class="content-menu">
-    <p class="title"><a href="index.html" aria-label="Ir al inicio">TecnoCore Guatemala</a></p>
-    <p>Potencia para crear, jugar y avanzar.</p>
-    <nav aria-label="Navegación principal" class="menu">
-      <a href="index.html" aria-current="page">Inicio</a> |
-      <a href="catalogo.html">Catálogo</a> |
-      <a href="categorias.html">Categorías</a> |
-      <a href="carrito.html">Carrito</a> |
-      <a href="registro.html">Crear cuenta</a> |
-      <a href="contacto.html">Contacto</a>
-    </nav>
-    <hr>
-    </section>
-  </header>
-
-  <main>
-    <!-- Banner hero: titulo con la fuente/efecto CyberwayRiders + imagen ilustrativa -->
-    <section>
-      <p><small>COMPUTADORAS · COMPONENTES · ENTREGA EN GUATEMALA · PROTOTIPO ACADÉMICO</small></p>
-      <h1 class="title-banner">Construye la potencia que necesitas</h1>
-      <p>Encuentra computadoras listas para usar, componentes para actualizar tu equipo y periféricos para completar
-        tu espacio de trabajo o juego.</p>
-      <p><a href="catalogo.html">Explorar el catálogo</a> · <a href="categorias.html">Buscar por categoría</a></p>
-      <!-- WebP con respaldo JPEG: el navegador usa el primer <source> que soporte -->
-      <figure>
-        <picture>
-          <source srcset="src/img/banner-computadoras.webp" type="image/webp">
-          <img
-            src="src/img/banner-computadoras.jpg"
-            alt="Computadora de escritorio, monitor y componentes sobre un escritorio azul" width="900">
-        </picture>
-        <figcaption>Equipos y componentes seleccionados para rendir más.</figcaption>
-      </figure>
-    </section>
-
-    <!-- Productos recomendados: muestra de 3 filas, cada una enlaza al detalle o al catálogo filtrado -->
-    <section aria-labelledby="destacados">
-      <h2 id="destacados">Tecnología destacada</h2>
-      <table border="1" cellpadding="10">
-        <caption>Tres productos recomendados de la semana</caption>
-        <thead>
-          <tr>
-            <th scope="col">Producto</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>PC Gamer Nova</strong><br>Ryzen 7 · 16 GB RAM · 1 TB SSD</td>
-            <td>Equipo equilibrado para jugar, transmitir y crear contenido.</td>
-            <td>Q8,995.00<br><a href="producto.html">Ver detalle</a></td>
-          </tr>
-          <tr>
-            <td><strong>Laptop Pro 15</strong><br>Core i7 · 16 GB RAM · 512 GB SSD</td>
-            <td>Movilidad y rendimiento para estudio y trabajo profesional.</td>
-            <td>Q7,299.00<br><a href="catalogo.html#laptop-pro">Ver en catálogo</a></td>
-          </tr>
-          <tr>
-            <td><strong>Tarjeta gráfica RX 7800 XT</strong><br>16 GB GDDR6</td>
-            <td>Gráficos fluidos en alta resolución para equipos de alto desempeño.</td>
-            <td>Q5,499.00<br><a href="catalogo.html#tarjeta-grafica">Ver en catálogo</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- Explicacion breve del flujo de compra (demostrativo, sin pagos reales) -->
-    <section>
-      <h2>Comprar en TecnoCore</h2>
-      <ol>
-        <li>Encuentra un equipo o componente en el catálogo.</li>
-        <li>Revisa sus especificaciones y agrégalo al carrito de demostración.</li>
-        <li>Completa tus datos de entrega en el formulario.</li>
-      </ol>
-      <p><small>Este prototipo no procesa pagos ni almacena información.</small></p>
-    </section>
-
-    <!-- Suscripción al boletin: formulario de un solo campo, no envia datos reales -->
-    <aside>
-      <h2>Novedades tecnológicas</h2>
-      <form action="#" method="get">
-        <label for="boletin-correo">Correo electrónico:</label>
-        <input type="email" id="boletin-correo" name="correo" placeholder="cliente@ejemplo.com" required>
-        <button type="submit">Quiero recibir novedades</button>
-      </form>
-    </aside>
-  </main>
-  <!-- Pie de pagina compartido: se carga via iframe desde footer.html en todas las paginas -->
-  <footer>
-    <iframe src="footer.html" title="Pie de página de TecnoCore Guatemala" width="100%" height="150" style="border:none;"></iframe>
-  </footer>
-</body>
-
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="TecnoCore Guatemala, ecommerce de computadoras, componentes y periféricos." />
+    <title>TecnoCore Guatemala</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
