@@ -31,9 +31,9 @@ export default function ProductCard({ product }) {
         </Card.Title>
         <Card.Subtitle className="mb-2 text-secondary">{category?.name}</Card.Subtitle>
         <Card.Text className="flex-grow-1">{product.specs}</Card.Text>
-        <Card.Text className="fs-5 fw-bold text-warning">{formatQuetzales(product.price)}</Card.Text>
+        <Card.Text className="fs-5 tc-price">{formatQuetzales(product.price)}</Card.Text>
         <div className="d-flex gap-2 mt-auto">
-          <Button as={Link} to={`/producto/${product.id}`} variant="outline-light" size="sm" className="flex-grow-1">
+          <Button as={Link} to={`/producto/${product.id}`} variant="outline-primary" size="sm" className="flex-grow-1">
             Ver detalle
           </Button>
           <Button

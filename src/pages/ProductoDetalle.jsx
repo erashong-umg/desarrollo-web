@@ -69,7 +69,7 @@ export default function ProductoDetalle() {
             </small>
           </p>
           <h1 className="h2">{product.name}</h1>
-          <p className="fs-3 fw-bold text-warning">{formatQuetzales(product.price)}</p>
+          <p className="fs-3 tc-price">{formatQuetzales(product.price)}</p>
           <p>{product.description ?? product.specs}</p>
 
           {product.specTable && (
@@ -104,7 +104,7 @@ export default function ProductoDetalle() {
             <Button type="submit" variant="primary" disabled={isOutOfStock}>
               {isOutOfStock ? 'No disponible' : 'Agregar al carrito'}
             </Button>
-            {added && <span className="text-cyan">Agregado al carrito.</span>}
+            {added && <span className="text-success">Agregado al carrito.</span>}
           </Form>
 
           <Accordion>

@@ -1,0 +1,376 @@
+/*
+  theme.css — tema visual propio de TecnoCore Guatemala.
+
+  Tema claro, confiable y nitido para un ecommerce de tecnologia, basado en
+  la paleta: azul marino (#0b3c5d), azul brillante (#328cc1), dorado
+  (#d9b310), azul-gris oscuro (#1d2731) y blanco suave (#f4f7f9).
+  El dorado se reserva para acciones clave (agregar al carrito, enviar);
+  el azul brillante guia enlaces y estados interactivos; el azul-gris
+  oscuro viste la navegacion y el pie de pagina.
+*/
+
+:root {
+  --tc-bg: #f4f7f9;
+  --tc-surface: #ffffff;
+  --tc-surface-alt: #eef2f5;
+  --tc-border: #dbe3e9;
+  --tc-text: #1d2731;
+  --tc-text-muted: #5b6b76;
+  --tc-navy: #0b3c5d;
+  --tc-blue: #328cc1;
+  --tc-blue-dark: #276b96;
+  --tc-gold: #ffc400e0;
+  --tc-gold-dark: #b3930b;
+  --tc-radius: 0.5rem;
+
+  --bs-body-bg: var(--tc-bg);
+  --bs-body-color: var(--tc-text);
+  --bs-border-color: var(--tc-border);
+  --bs-secondary-color: var(--tc-text-muted);
+  --bs-link-color: var(--tc-blue);
+  --bs-link-hover-color: var(--tc-blue-dark);
+  --bs-primary: var(--tc-blue);
+  --bs-primary-rgb: 50, 140, 193;
+}
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--tc-bg);
+  color: var(--tc-text);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tc-main {
+  flex: 1;
+  width: 100%;
+}
+
+a {
+  color: var(--tc-blue);
+}
+
+a:hover,
+a:focus {
+  color: var(--tc-blue-dark);
+}
+
+.brand-font {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1,
+.display-heading {
+  font-weight: 700;
+  color: var(--tc-navy);
+}
+
+h2,
+.section-heading {
+  font-weight: 600;
+  color: var(--tc-navy);
+}
+
+/* Navbar */
+.tc-navbar {
+  background: var(--tc-navy) !important;
+}
+
+.tc-navbar .navbar-brand {
+  color: #fff !important;
+}
+
+.tc-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.tc-navbar .nav-link:hover,
+.tc-navbar .nav-link:focus {
+  color: #fff !important;
+}
+
+.tc-navbar .nav-link.active {
+  color: #fff !important;
+  font-weight: 600;
+  position: relative;
+}
+
+.tc-navbar .nav-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: -1px;
+  height: 2px;
+  background: var(--tc-gold);
+}
+
+/* Paneles: cards, secciones destacadas */
+.tc-panel {
+  background: var(--tc-surface);
+  border: 1px solid var(--tc-border);
+  border-radius: var(--tc-radius);
+}
+
+.card {
+  background: var(--tc-surface);
+  border: 1px solid var(--tc-border);
+  border-radius: var(--tc-radius);
+  color: var(--tc-text);
+}
+
+.card-title {
+  color: var(--tc-navy);
+  font-weight: 600;
+}
+
+.card-header {
+  background: var(--tc-surface-alt);
+  border-bottom: 1px solid var(--tc-border);
+}
+
+/* Botones: dorado para la accion principal, azul para lo secundario */
+.btn {
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--tc-gold);
+  border-color: var(--tc-gold);
+  color: #1d2731;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: var(--tc-gold-dark);
+  border-color: var(--tc-gold-dark);
+  color: #1d2731;
+}
+
+/* Uso especifico: botones sobre fotos con superposicion oscura (hero) */
+.btn-outline-light {
+  border-color: #fff;
+  color: #fff;
+}
+
+.btn-outline-light:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--tc-navy);
+}
+
+.btn-outline-danger {
+  border-color: #c0392b;
+  color: #c0392b;
+}
+
+.btn-outline-danger:hover {
+  background: #c0392b;
+  color: #fff;
+}
+
+/* Tablas */
+.table {
+  --bs-table-bg: var(--tc-surface);
+  --bs-table-color: var(--tc-text);
+  --bs-table-border-color: var(--tc-border);
+  --bs-table-hover-bg: var(--tc-surface-alt);
+}
+
+.table thead th {
+  background: var(--tc-navy);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-color: var(--tc-navy);
+}
+
+.table caption {
+  color: var(--tc-text-muted);
+  font-weight: 500;
+}
+
+/* Formularios */
+.form-control,
+.form-select {
+  background: var(--tc-surface);
+  color: var(--tc-text);
+  border: 1px solid var(--tc-border);
+  border-radius: 0.375rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background: var(--tc-surface);
+  color: var(--tc-text);
+  border-color: var(--tc-blue);
+  box-shadow: 0 0 0 0.2rem rgba(50, 140, 193, 0.2);
+}
+
+.form-control::placeholder {
+  color: var(--tc-text-muted);
+}
+
+.form-label {
+  color: var(--tc-text);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-check-label {
+  color: var(--tc-text);
+}
+
+fieldset.tc-fieldset {
+  border: 1px solid var(--tc-border);
+  border-radius: var(--tc-radius);
+  padding: 1rem;
+}
+
+fieldset.tc-fieldset legend {
+  width: auto;
+  padding: 0 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--tc-navy);
+}
+
+/* Accordion */
+.accordion-item {
+  background: var(--tc-surface);
+  border: 1px solid var(--tc-border);
+}
+
+.accordion-button {
+  background: var(--tc-surface);
+  color: var(--tc-text);
+  font-weight: 500;
+}
+
+.accordion-button:not(.collapsed) {
+  background: var(--tc-surface-alt);
+  color: var(--tc-navy);
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(50, 140, 193, 0.2);
+}
+
+/* ListGroup */
+.list-group-item {
+  background: var(--tc-surface);
+  color: var(--tc-text);
+  border-color: var(--tc-border);
+}
+
+.list-group-item-action:hover {
+  background: var(--tc-surface-alt);
+  color: var(--tc-navy);
+}
+
+/* Modal */
+.modal-content {
+  background: var(--tc-surface);
+  color: var(--tc-text);
+  border: 1px solid var(--tc-border);
+}
+
+.modal-header,
+.modal-footer {
+  border-color: var(--tc-border);
+}
+
+/* Carousel */
+.carousel-item .tc-slide {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--tc-surface);
+  border: 1px solid var(--tc-border);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(29, 39, 49, 0.55);
+  border-radius: 50%;
+  padding: 1.25rem;
+  background-size: 50%;
+}
+
+.carousel .carousel-caption {
+  background: rgba(11, 60, 93, 0.75);
+  border-radius: var(--tc-radius);
+  padding: 1rem 1.5rem;
+}
+
+/* Precio destacado */
+.tc-price {
+  color: var(--tc-navy);
+  font-weight: 700;
+}
+
+/* Insignias de estado */
+.badge.bg-success {
+  background-color: #e3f3ea !important;
+  color: #1e7d4b !important;
+  border: 1px solid #bfe3cf;
+  font-weight: 500;
+}
+
+.badge.bg-warning {
+  background-color: #fbf1d3 !important;
+  color: #8a6d0a !important;
+  border: 1px solid #edd98a;
+  font-weight: 500;
+}
+
+.badge.bg-danger {
+  background-color: #fbe6e3 !important;
+  color: #a3341f !important;
+  border: 1px solid #f0c0b8;
+  font-weight: 500;
+}
+
+.badge.bg-primary {
+  background-color: var(--tc-blue) !important;
+}
+
+.text-success {
+  color: #1e7d4b !important;
+}
+
+/* Footer */
+.tc-footer {
+  margin-top: 2rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.65);
+  background: var(--tc-navy);
+}
+
+.tc-footer strong {
+  color: #fff;
+}
+
+.tc-footer a {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tc-footer a:hover {
+  color: #fff;
+}

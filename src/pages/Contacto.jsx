@@ -62,7 +62,7 @@ export default function Contacto() {
           <section className="tc-panel p-4">
             <h2 className="h4 mb-3">Enviar una consulta</h2>
             {sent ? (
-              <p className="text-cyan mb-0">
+              <p className="text-success mb-0">
                 Gracias por escribirnos. Esta consulta de demostración no fue enviada a ningún servidor.
               </p>
             ) : (

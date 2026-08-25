@@ -150,6 +150,7 @@ export const products = [
     category: 'escritorio',
     availability: 'En existencia',
     price: 5495,
+    thumbnail: 'PC-Oficina-Core.jpg'
   },
   {
     id: 'tc-008',
@@ -159,6 +160,7 @@ export const products = [
     category: 'laptops',
     availability: 'En existencia',
     price: 4895,
+    thumbnail: 'Laptop-Air-14.jpg'
   },
   {
     id: 'tc-009',
