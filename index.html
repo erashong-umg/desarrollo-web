@@ -35,10 +35,14 @@
       <p>Encuentra computadoras listas para usar, componentes para actualizar tu equipo y periféricos para completar
         tu espacio de trabajo o juego.</p>
       <p><a href="catalogo.html">Explorar el catálogo</a> · <a href="categorias.html">Buscar por categoría</a></p>
+      <!-- WebP con respaldo JPEG: el navegador usa el primer <source> que soporte -->
       <figure>
-        <img
-          src="src/img/banner-computadoras.png"
-          alt="Computadora de escritorio, monitor y componentes sobre un escritorio azul" width="900">
+        <picture>
+          <source srcset="src/img/banner-computadoras.webp" type="image/webp">
+          <img
+            src="src/img/banner-computadoras.jpg"
+            alt="Computadora de escritorio, monitor y componentes sobre un escritorio azul" width="900">
+        </picture>
         <figcaption>Equipos y componentes seleccionados para rendir más.</figcaption>
       </figure>
     </section>

@@ -31,9 +31,13 @@
         <p><small>TC-001 · DISPONIBLE</small></p>
         <h1>PC Gamer Nova</h1>
       </header>
+      <!-- WebP con respaldo JPEG: el navegador usa el primer <source> que soporte -->
       <figure>
-        <img src="src/img/products/pc-gamer-nova.png"
-          alt="Computadora gamer negra con panel lateral de vidrio y ventiladores azules" width="360">
+        <picture>
+          <source srcset="src/img/products/pc-gamer-nova.webp" type="image/webp">
+          <img src="src/img/products/pc-gamer-nova.jpg"
+            alt="Computadora gamer negra con panel lateral de vidrio y ventiladores azules" width="360" loading="lazy">
+        </picture>
         <figcaption>Imagen ilustrativa del producto.</figcaption>
       </figure>
       <p><strong>Q8,995.00</strong></p>
