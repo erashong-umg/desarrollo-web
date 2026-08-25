@@ -75,6 +75,7 @@ export const products = [
       ['Gráficos', 'Tarjeta dedicada de 12 GB'],
       ['Código', 'TC-001'],
     ],
+    thumbnail: 'TC-001.jpg',
   },
   {
     id: 'tc-002',
@@ -93,6 +94,7 @@ export const products = [
       ['Código', 'TC-002'],
     ],
     description: 'Movilidad y rendimiento para estudio y trabajo profesional.',
+    thumbnail: 'TC-002.webp',
   },
   {
     id: 'tc-003',
@@ -109,6 +111,7 @@ export const products = [
       ['Código', 'TC-003'],
     ],
     description: 'Gráficos fluidos en alta resolución para equipos de alto desempeño.',
+    thumbnail: 'TC-003.jpg',
   },
   {
     id: 'tc-004',
@@ -118,6 +121,7 @@ export const products = [
     category: 'monitores',
     availability: 'En existencia',
     price: 2395,
+    thumbnail: 'Monitor-QHD-27.jpg',
   },
   {
     id: 'tc-005',
@@ -127,6 +131,7 @@ export const products = [
     category: 'almacenamiento',
     availability: 'En existencia',
     price: 695,
+    thumbnail: 'SSD-NVMe-1-TB.jpg'
   },
   {
     id: 'tc-006',

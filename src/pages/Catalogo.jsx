@@ -3,6 +3,7 @@ import { Badge, Button, Container, Form, Table } from 'react-bootstrap'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { categories, formatQuetzales, products } from '../data/products'
+import { getProductThumbnail } from '../utils/productImages'
 
 const availabilityVariant = {
   'En existencia': 'success',
@@ -83,6 +84,7 @@ export default function Catalogo() {
           <caption>{filtered.length} productos encontrados</caption>
           <thead>
             <tr>
+              <th scope="col"></th>
               <th scope="col">Código</th>
               <th scope="col">Producto y especificaciones</th>
               <th scope="col">Categoría</th>
@@ -94,8 +96,21 @@ export default function Catalogo() {
           <tbody>
             {filtered.map((product) => {
               const isOutOfStock = product.availability === 'Agotado'
+              const thumbnail = product.image?.jpg ?? getProductThumbnail(product.thumbnail)
               return (
                 <tr key={product.id}>
+                  <td>
+                    {thumbnail && (
+                      <img
+                        src={thumbnail}
+                        alt=""
+                        className="thumb"
+                        width={48}
+                        height={48}
+                        style={{ objectFit: 'cover', borderRadius: 'var(--radius)' }}
+                      />
+                    )}
+                  </td>
                   <td>{product.code}</td>
                   <td>
                     <Link to={`/producto/${product.id}`} className="fw-bold text-decoration-none">
@@ -124,7 +139,7 @@ export default function Catalogo() {
             })}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={6} className="text-center text-secondary py-4">
+                <td colSpan={7} className="text-center text-secondary py-4">
                   No se encontraron productos con esos filtros.
                 </td>
               </tr>
