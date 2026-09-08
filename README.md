@@ -1,113 +1,78 @@
-# Excursión al Lago de Atitlán
+# Excursion al Lago de Atitlan &mdash; Aplicacion React (Hoja de Trabajo 4)
 
-Página web informativa creada para promocionar una excursión al Lago de Atitlán,
-Guatemala. Incluye una descripción del destino, un índice de navegación, una
-galería de imágenes, el itinerario de dos días, actividades, recomendaciones y,
-a partir de la **Hoja de Trabajo 3**, un conjunto de funcionalidades interactivas
-desarrolladas con JavaScript en un archivo externo (`src/js/app.js`).
+Migracion del sitio de la excursion al Lago de Atitlan (Guatemala) hacia un
+proyecto modular basado en **React + Vite**. Toda la logica y el diseno de la
+Hoja de Trabajo 3 se reorganizaron en componentes reutilizables e
+independientes dentro de `src/components/`.
 
 ## Sitio web publicado
 
-[https://erashong-hoja-trabajo-3.netlify.app](https://erashong-hoja-trabajo-3.netlify.app/)
+Pendiente de publicar en Netlify. El enlace se actualizara aqui una vez
+desplegado:
+
+> https://TODO-excursion-atitlan-react.netlify.app
+
+Build de produccion: `npm run build` (salida en `dist/`). La configuracion de
+Netlify esta en `netlify.toml`.
 
 ## Estudiante
 
-> Nombre: **Erick Orlando Rashón González** <br/>Carnet: **9490-11-5609** <br>Sección: **B**
+> Nombre completo: **Erick Orlando Rashon Gonzalez**
+> Carne: **9490-11-5609**
+> Seccion: **B**
 
-## Hoja de Trabajo 3 — funcionalidades interactivas con JavaScript
+## Como ejecutar el proyecto
 
-Todo el código JavaScript vive en el archivo externo `src/js/app.js`, cargado con
-`defer` desde `index.html`. Cada funcionalidad está encapsulada en su propia
-función de inicialización y se arranca en el evento `DOMContentLoaded`.
-
-### 1. Galería de imágenes interactiva (modal / visor)
-
-Las cuatro imágenes de la galería son botones con atributos `data-*`
-(`data-full`, `data-titulo`, `data-descripcion`). Al hacer clic, JavaScript carga
-esos datos en un único `<dialog>` y lo abre con `showModal()`, mostrando la
-imagen en tamaño grande junto con su título y una breve descripción del atractivo.
-
-El visor se cierra de tres formas: con el botón **×**, haciendo clic sobre el
-fondo oscuro, o con la tecla **Esc** (comportamiento nativo de `<dialog>`).
-
-> Esto sustituye al lightbox 100% CSS de la Hoja de Trabajo 2, que usaba
-> `:target` y no atrapaba el foco ni respondía a `Esc`. Con `showModal()` el
-> diálogo sí es un modal real a nivel de accesibilidad.
-
-```js
-boton.addEventListener("click", function () {
-  imagen.src = boton.dataset.full;
-  titulo.textContent = boton.dataset.titulo;
-  modal.classList.add("abierto");
-  modal.showModal();
-});
+```powershell
+npm install     # instalar dependencias
+npm run dev      # servidor de desarrollo (http://localhost:5173)
+npm run build    # compilacion de produccion en dist/
+npm run preview  # previsualizar la compilacion de produccion
 ```
 
-### 2. Calculadora de cotización
+## Estructura
 
-Formulario con número de asistentes (`input type="number"`), tipo de paquete
-(`<select>` con cuatro opciones) y cuatro servicios adicionales
-(`input type="checkbox"`: transporte, alimentación, equipo de kayak y guía
-bilingüe).
+```
+index.html               Punto de entrada de Vite
+src/
+  main.jsx               Monta <App /> en el DOM
+  App.jsx                Composicion de todos los componentes
+  components/            Componentes reutilizables (uno por funcionalidad)
+  data/                  Arreglos de datos (galeria, actividades, paquetes)
+  styles/style.css       Hoja de estilos del sitio
+public/img/              Imagenes del banner y de la galeria
+```
 
-El botón **Calcular Total** ejecuta el cálculo con `preventDefault()`, sin
-recargar la página, e imprime en pantalla un resumen con el paquete elegido, los
-servicios marcados, el subtotal y el total formateado en quetzales mediante
-`Intl.NumberFormat`. Los grupos de 10 o más personas reciben un 10% de descuento
-aplicado automáticamente.
+## Componentes
 
-### 3. Filtro en tiempo real de la lista de actividades
+### Componentes interactivos solicitados
 
-Un campo de texto sobre la lista de actividades escucha el evento `input` y
-filtra los `<li>` conforme el usuario escribe, alternando la clase `oculto` con
-`classList.toggle()`. Si ninguna actividad coincide, se muestra un mensaje de
-aviso.
+| Componente | Archivo | Descripcion |
+|---|---|---|
+| **Galeria de imagenes interactiva** | `components/Galeria.jsx` | Cuadricula con cuatro imagenes de los atractivos. Al hacer clic en una miniatura se abre un visor destacado (modal) con la imagen en grande, su titulo y su descripcion. Se cierra con el boton **&times;**, con la tecla **Esc** o haciendo clic sobre el fondo oscuro. El estado del modal se maneja con `useState`. |
+| **Calculadora de cotizacion / presupuesto** | `components/Cotizador.jsx` | Campo numerico de asistentes, `<select>` de tipo de paquete y `<checkbox>` de servicios adicionales (transporte, alimentacion, equipo de kayak, guia bilingue). El total estimado se **recalcula en tiempo real** con el estado de React conforme el usuario cambia cualquier opcion, sin recargar la pagina. Aplica 10% de descuento para grupos de 10 o mas personas. |
+| **Filtro de actividades en tiempo real** | `components/FiltroActividades.jsx` | Campo `<input type="text">` sobre la lista de actividades. Conforme el usuario escribe, la lista se filtra dinamicamente mostrando solo los elementos que coinciden con el texto. |
+| **Formulario de reservacion y contacto** | `components/FormularioReservacion.jsx` | Solicita nombre completo y numero de personas. Valida con logica de control que los campos obligatorios no se envien vacios ni con valores negativos o cero. Al enviarse correctamente, renderiza en pantalla un mensaje de confirmacion personalizado con el nombre y la cantidad de personas. |
+| **Seccion de resenas / testimonios aleatorios** | `components/Testimonials.jsx` | Usa internamente dos arreglos: uno con 6 nombres de visitantes y otro con 6 comentarios asociados. El boton **Ver otra opinion** rota entre los testimonios de forma aleatoria sin repetir el mismo dos veces seguidas. |
 
-### 4. Confirmación interactiva de reservación
+### Componentes de apoyo
 
-El formulario de reservación se valida con JavaScript antes de enviarse: se
-verifica que nombre, correo, número de personas y fecha no estén vacíos, que el
-correo tenga formato válido y que las personas sean al menos 1. Los campos con
-error se marcan con la clase `invalido` y muestran su mensaje específico.
+| Componente | Archivo | Descripcion |
+|---|---|---|
+| `Hero.jsx` | Encabezado con el banner panoramico del lago. |
+| `Navegacion.jsx` | Indice de navegacion hacia cada seccion. |
+| `Descripcion.jsx` | Descripcion del destino turistico. |
+| `Itinerario.jsx` | Tabla del programa de la excursion de dos dias. |
+| `Footer.jsx` | Pie de pagina con los datos del autor. |
 
-Cuando la validación pasa, se muestra un mensaje dinámico de confirmación del
-tipo *"¡Gracias Ana Gómez! Tu solicitud para 4 personas ha sido registrada para
-el 15 de agosto de 2026."*
+## De la Hoja de Trabajo 3 a la Hoja de Trabajo 4
 
-### 5. Sección de reseñas / testimonios aleatorios
-
-En `app.js` se definen dos arreglos: uno con seis nombres de visitantes y otro
-con seis comentarios sobre la excursión. El botón **Ver otra opinión** selecciona
-un índice aleatorio con `Math.random()` y actualiza la tarjeta, evitando repetir
-el mismo testimonio dos veces seguidas. También se muestra un testimonio al
-cargar la página.
-
-### Técnicas de JavaScript aplicadas
-
-- Selección de elementos con `getElementById()`, `querySelector()` y `querySelectorAll()`.
-- Manejo de eventos con `addEventListener()`: `click`, `input`, `submit`, `reset`, `close` y `DOMContentLoaded`.
-- Manipulación del DOM con `textContent`, `innerHTML` y atributos `dataset`.
-- Modificación de clases con `classList.add()`, `.remove()` y `.toggle()`.
-- Prevención del envío del formulario con `event.preventDefault()`.
-- Formato de moneda y fecha con `Intl.NumberFormat` y `toLocaleDateString` (locale `es-GT`).
-
-## Archivos
-
-- `index.html`: página principal de la excursión.
-- `src/css/style.css`: hoja de estilos del sitio.
-- `src/js/app.js`: **archivo externo con toda la lógica interactiva.**
-- `src/img/`: imágenes locales del banner y la galería.
-- `README.md`: información general y enlace de publicación.
-
-## Change log
-
-### Hoja de Trabajo 3
-- Se agregó el archivo externo `src/js/app.js` con las cinco funcionalidades interactivas.
-- El lightbox CSS por `:target` se reemplazó por un visor `<dialog>` único controlado con JavaScript.
-- Nuevas secciones: **Cotiza tu viaje**, **Opiniones de nuestros visitantes** y **Reserva tu lugar**.
-- Estilos nuevos para formularios, botones, mensajes de resultado y tarjeta de testimonios.
-
-### Hoja de Trabajo 2
-- Aplicar estilos CSS con archivo `style.css`.
-- Mejorar diseño y apariencia.
-- Aplicar tag `<dialog>` para visualizar imágenes (versión solo CSS).
+- El archivo unico `src/js/app.js` (JavaScript imperativo sobre el DOM) se
+  reemplazo por componentes React con estado (`useState`, `useMemo`,
+  `useEffect`).
+- El `index.html` estatico se dividio en componentes; ahora Vite compila la
+  aplicacion.
+- El visor de galeria con `<dialog>` se reimplemento como un overlay
+  renderizado condicionalmente segun el estado.
+- La cotizacion pasa de calcularse al pulsar un boton a recalcularse en tiempo
+  real ante cualquier cambio.

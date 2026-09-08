@@ -795,3 +795,50 @@ fieldset.campo {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ------------------------------------------------------------------
+   Añadidos para la versión React (Hoja de Trabajo 4)
+------------------------------------------------------------------ */
+
+/* Visor de galería como overlay controlado por estado de React */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2.5rem 1.5rem 3rem;
+  background-color: rgba(10, 14, 15, 0.78);
+  backdrop-filter: blur(4px);
+  animation: aparecer 0.2s ease;
+}
+
+.lightbox-overlay img {
+  max-width: min(90vw, 900px);
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-muted);
+  padding: 1rem 0;
+}
+
+.resultado-ok {
+  border-left-color: var(--color-accent);
+}
+
+.contador-testimonio {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
