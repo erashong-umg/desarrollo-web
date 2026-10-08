@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
   const { addItem } = useCart()
   const category = getCategoryBySlug(product.category)
   const isOutOfStock = product.availability === 'Agotado'
-  const thumbnail = product.image?.jpg ?? getProductThumbnail(product.thumbnail)
+  const thumbnail = getProductThumbnail(product.thumbnail)
 
   return (
     <Card className="h-100 tc-fade-in">

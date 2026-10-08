@@ -1,10 +1,11 @@
 import { createContext, useContext, useMemo, useState } from 'react'
-import { getProductById } from '../data/products'
+import { useProducts } from './ProductsContext'
 
 const CartContext = createContext(null)
 
 export function CartProvider({ children }) {
   const [items, setItems] = useState([])
+  const { products } = useProducts()
 
   function addItem(productId, quantity = 1) {
     setItems((current) => {
@@ -39,9 +40,9 @@ export function CartProvider({ children }) {
   const detailedItems = useMemo(
     () =>
       items
-        .map((item) => ({ ...item, product: getProductById(item.productId) }))
+        .map((item) => ({ ...item, product: products.find((p) => p.id === item.productId) }))
         .filter((item) => item.product),
-    [items],
+    [items, products],
   )
 
   const totalItems = useMemo(() => items.reduce((sum, item) => sum + item.quantity, 0), [items])

@@ -6,8 +6,13 @@ import Categorias from './pages/Categorias'
 import ProductoDetalle from './pages/ProductoDetalle'
 import Carrito from './pages/Carrito'
 import Registro from './pages/Registro'
+import Login from './pages/Login'
+import Perfil from './pages/Perfil'
+import AdminProductos from './pages/AdminProductos'
 import Contacto from './pages/Contacto'
 import NotFound from './pages/NotFound'
+import RequireAuth from './components/RequireAuth'
+import RequireAdmin from './components/RequireAdmin'
 
 export default function App() {
   return (
@@ -19,6 +24,23 @@ export default function App() {
         <Route path="producto/:id" element={<ProductoDetalle />} />
         <Route path="carrito" element={<Carrito />} />
         <Route path="registro" element={<Registro />} />
+        <Route path="login" element={<Login />} />
+        <Route
+          path="perfil"
+          element={
+            <RequireAuth>
+              <Perfil />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="admin/productos"
+          element={
+            <RequireAdmin>
+              <AdminProductos />
+            </RequireAdmin>
+          }
+        />
         <Route path="contacto" element={<Contacto />} />
         <Route path="*" element={<NotFound />} />
       </Route>

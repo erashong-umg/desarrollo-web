@@ -1,14 +1,16 @@
 # TecnoCore Guatemala
 
 Ecommerce académico de computadoras, componentes y periféricos. La Tarea 1 se construyó con HTML nativo puro; en
-esta Tarea 2 el sitio se reconstruyó como una aplicación **React** (Vite) componentizada, con **React-Bootstrap**
-para el diseño y **React Router** para la navegación entre secciones, manteniendo la arquitectura de información
-original y el tema visual "cyberpunk". El carrito de compras es interactivo (agregar, actualizar cantidad, quitar)
-mediante un Context de React; los formularios son demostrativos y no procesan pagos ni almacenan datos reales.
+la Tarea 2 el sitio se reconstruyó como una aplicación **React** (Vite) componentizada, con **React-Bootstrap**
+para el diseño y **React Router** para la navegación entre secciones. En la **Tarea 4** (rama `Tarea4`) el sitio
+evolucionó a una arquitectura full-stack real: un backend propio en **Node.js + Express + MongoDB Atlas**
+(carpeta `backend/`) reemplaza los datos estáticos y el login simulado, y el frontend consume esa API con
+`fetch` y sincroniza las respuestas con el estado global (`useContext` + `useReducer`).
 
-## Sitio publicado
+## Sitios publicados
 
-[Ver TecnoCore Guatemala en Netlify](https://erashong-tarea2-tecnocore.netlify.app/)
+- **Frontend (Netlify):** [Ver TecnoCore Guatemala](https://erashong-tarea2-tecnocore.netlify.app/) — *pendiente de redeploy sobre la rama `Tarea4` con `VITE_API_URL` apuntando al backend en Render.*
+- **Backend (Render):** *pendiente de desplegar — ver instrucciones en [`backend/README.md`](./backend/README.md).*
 
 ## Estudiante
 
@@ -17,7 +19,17 @@ mediante un Context de React; los formularios son demostrativos y no procesan pa
 - **Sección:** **B**
 - **Trabajo individual.** Todos los módulos y componentes fueron desarrollados por el mismo estudiante:
   estructura de la aplicación (React Router, Layout, Navbar, Footer), contexto del carrito de compras, páginas de
-  Inicio, Catálogo, Categorías, Detalle de producto, Carrito, Registro y Contacto, y estilos con React-Bootstrap.
+  Inicio, Catálogo, Categorías, Detalle de producto, Carrito, Registro y Contacto, estilos con React-Bootstrap, y
+  en la Tarea 4 el backend completo (modelos, controladores, rutas, conexión a MongoDB Atlas) y la integración del
+  frontend con la API (autenticación real, CRUD de productos, perfil de usuario).
+
+## Tarea 4 — Backend y persistencia real
+
+- **Arquitectura y endpoints del backend:** ver [`backend/README.md`](./backend/README.md).
+- **Colección de pruebas de endpoints:** [`postman_collection.json`](./postman_collection.json) (importar en Postman o Thunder Client).
+- **Nuevas páginas del frontend:** `/login` (inicio de sesión real), `/perfil` (datos del usuario autenticado
+  desde MongoDB), `/admin/productos` (CRUD de catálogo, solo rol `admin`).
+- **Variables de entorno del frontend:** `.env.development` / `.env.production` definen `VITE_API_URL`.
 
 ## Tecnologías
 

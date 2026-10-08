@@ -1,0 +1,144 @@
+{
+  "info": {
+    "name": "TecnoCore Guatemala - API Tarea 4",
+    "description": "Colección de pruebas para la API REST (Express + MongoDB Atlas) de TecnoCore Guatemala. Importar en Postman o Thunder Client. Configura la variable de entorno {{baseUrl}} apuntando a http://localhost:4000/api en desarrollo o a la URL de Render en producción.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000/api" },
+    { "key": "productoId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Registrar usuario",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ana Pérez\",\n  \"correo\": \"ana.perez@example.com\",\n  \"password\": \"Secreta123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Registrar usuario - correo duplicado (409)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ana Pérez\",\n  \"correo\": \"ana.perez@example.com\",\n  \"password\": \"Secreta123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login correcto",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"ana.perez@example.com\",\n  \"password\": \"Secreta123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login credenciales inválidas (401)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"ana.perez@example.com\",\n  \"password\": \"incorrecta\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recursos (Productos)",
+      "item": [
+        {
+          "name": "Listar todos los productos",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/recursos"
+          }
+        },
+        {
+          "name": "Filtrar por categoría",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/recursos?categoria=laptops"
+          }
+        },
+        {
+          "name": "Buscar por texto (q)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/recursos?q=ryzen"
+          }
+        },
+        {
+          "name": "Filtrar destacados",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/recursos?featured=true"
+          }
+        },
+        {
+          "name": "Obtener producto por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/recursos/{{productoId}}"
+          }
+        },
+        {
+          "name": "Obtener producto inexistente (404)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/recursos/000000000000000000000000"
+          }
+        },
+        {
+          "name": "Crear producto",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/recursos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"TC-900\",\n  \"name\": \"Webcam Full HD\",\n  \"specs\": \"1080p · micrófono integrado\",\n  \"category\": \"perifericos\",\n  \"availability\": \"En existencia\",\n  \"price\": 295,\n  \"featured\": false,\n  \"description\": \"Webcam para videollamadas con enfoque automático.\",\n  \"delivery\": \"Entrega estimada de 2 a 4 días hábiles.\",\n  \"specTable\": [\n    { \"label\": \"Resolución\", \"value\": \"1920x1080\" },\n    { \"label\": \"Conexión\", \"value\": \"USB\" }\n  ],\n  \"thumbnail\": \"\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar producto (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/recursos/{{productoId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 3295,\n  \"availability\": \"Últimas unidades\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar producto",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/recursos/{{productoId}}"
+          }
+        }
+      ]
+    }
+  ]
+}

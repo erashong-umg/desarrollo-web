@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { Button, Carousel, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, Carousel, Col, Container, Form, Row, Spinner } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
-import { formatQuetzales, products } from '../data/products'
+import { formatQuetzales } from '../data/products'
+import { useProducts } from '../context/ProductsContext'
 import bannerJpg from '../img/banner-computadoras.jpg'
-
-const featured = products.filter((product) => product.featured)
 
 export default function Home() {
   const [subscribed, setSubscribed] = useState(false)
+  const { products, loading } = useProducts()
+  const featured = products.filter((product) => product.featured)
 
   function handleSubscribe(event) {
     event.preventDefault()
@@ -69,13 +70,19 @@ export default function Home() {
           <h2 id="destacados" className="h3 mb-3">
             Tecnología destacada
           </h2>
-          <Row xs={1} md={2} lg={3} className="g-3">
-            {featured.map((product) => (
-              <Col key={product.id}>
-                <ProductCard product={product} />
-              </Col>
-            ))}
-          </Row>
+          {loading ? (
+            <div className="d-flex align-items-center gap-2">
+              <Spinner animation="border" size="sm" /> Cargando productos destacados…
+            </div>
+          ) : (
+            <Row xs={1} md={2} lg={3} className="g-3">
+              {featured.map((product) => (
+                <Col key={product.id}>
+                  <ProductCard product={product} />
+                </Col>
+              ))}
+            </Row>
+          )}
         </section>
 
         <Row className="g-4">

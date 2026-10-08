@@ -1,9 +1,10 @@
-import { useMemo } from 'react'
-import { Badge, Button, Container, Form, Table } from 'react-bootstrap'
+import { useEffect, useState } from 'react'
+import { Alert, Badge, Button, Container, Form, Spinner, Table } from 'react-bootstrap'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { categories, formatQuetzales, products } from '../data/products'
+import { categories, formatQuetzales } from '../data/products'
 import { getProductThumbnail } from '../utils/productImages'
+import { apiGet } from '../services/api'
 
 const availabilityVariant = {
   'En existencia': 'success',
@@ -14,19 +15,47 @@ const availabilityVariant = {
 export default function Catalogo() {
   const [searchParams, setSearchParams] = useSearchParams()
   const { addItem } = useCart()
+  const [filtered, setFiltered] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const query = searchParams.get('q') ?? ''
   const category = searchParams.get('categoria') ?? ''
 
-  const filtered = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase()
-    return products.filter((product) => {
-      const matchesCategory = category ? product.category === category : true
-      const matchesQuery = normalizedQuery
-        ? `${product.name} ${product.specs}`.toLowerCase().includes(normalizedQuery)
-        : true
-      return matchesCategory && matchesQuery
-    })
+  useEffect(() => {
+    let cancelled = false
+    setLoading(true)
+    setError(null)
+
+    const params = new URLSearchParams()
+    if (category) {
+      params.set('categoria', category)
+    }
+    if (query) {
+      params.set('q', query)
+    }
+    const queryString = params.toString()
+
+    apiGet(`/recursos${queryString ? `?${queryString}` : ''}`)
+      .then((data) => {
+        if (!cancelled) {
+          setFiltered(data)
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          setError(err.message)
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
   }, [query, category])
 
   function handleSearchChange(event) {
@@ -53,7 +82,7 @@ export default function Catalogo() {
     <Container className="py-4">
       <h1 className="h2 mb-3">Catálogo de computadoras y componentes</h1>
       <p className="text-secondary">
-        Consulta nuestra selección de {products.length} productos en {categories.length} categorías.
+        Consulta nuestra selección de productos en {categories.length} categorías.
       </p>
 
       <Form className="tc-panel p-3 mb-4" role="search">
@@ -79,74 +108,82 @@ export default function Catalogo() {
         </Form.Group>
       </Form>
 
-      <div className="table-responsive">
-        <Table hover>
-          <caption>{filtered.length} productos encontrados</caption>
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">Código</th>
-              <th scope="col">Producto y especificaciones</th>
-              <th scope="col">Categoría</th>
-              <th scope="col">Disponibilidad</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((product) => {
-              const isOutOfStock = product.availability === 'Agotado'
-              const thumbnail = product.image?.jpg ?? getProductThumbnail(product.thumbnail)
-              return (
-                <tr key={product.id}>
-                  <td>
-                    {thumbnail && (
-                      <img
-                        src={thumbnail}
-                        alt=""
-                        className="thumb"
-                        width={48}
-                        height={48}
-                        style={{ objectFit: 'cover', borderRadius: 'var(--radius)' }}
-                      />
-                    )}
-                  </td>
-                  <td>{product.code}</td>
-                  <td>
-                    <Link to={`/producto/${product.id}`} className="fw-bold text-decoration-none">
-                      {product.name}
-                    </Link>
-                    <br />
-                    <small className="text-secondary">{product.specs}</small>
-                  </td>
-                  <td>{categories.find((c) => c.slug === product.category)?.name}</td>
-                  <td>
-                    <Badge bg={availabilityVariant[product.availability]}>{product.availability}</Badge>
-                  </td>
-                  <td>{formatQuetzales(product.price)}</td>
-                  <td>
-                    <Button
-                      size="sm"
-                      variant="primary"
-                      disabled={isOutOfStock}
-                      onClick={() => addItem(product.id, 1)}
-                    >
-                      {isOutOfStock ? 'No disponible' : 'Agregar'}
-                    </Button>
+      {error && <Alert variant="danger">{error}</Alert>}
+
+      {loading ? (
+        <div className="d-flex align-items-center gap-2">
+          <Spinner animation="border" size="sm" /> Cargando productos…
+        </div>
+      ) : (
+        <div className="table-responsive">
+          <Table hover>
+            <caption>{filtered.length} productos encontrados</caption>
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Código</th>
+                <th scope="col">Producto y especificaciones</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Disponibilidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((product) => {
+                const isOutOfStock = product.availability === 'Agotado'
+                const thumbnail = getProductThumbnail(product.thumbnail)
+                return (
+                  <tr key={product.id}>
+                    <td>
+                      {thumbnail && (
+                        <img
+                          src={thumbnail}
+                          alt=""
+                          className="thumb"
+                          width={48}
+                          height={48}
+                          style={{ objectFit: 'cover', borderRadius: 'var(--radius)' }}
+                        />
+                      )}
+                    </td>
+                    <td>{product.code}</td>
+                    <td>
+                      <Link to={`/producto/${product.id}`} className="fw-bold text-decoration-none">
+                        {product.name}
+                      </Link>
+                      <br />
+                      <small className="text-secondary">{product.specs}</small>
+                    </td>
+                    <td>{categories.find((c) => c.slug === product.category)?.name}</td>
+                    <td>
+                      <Badge bg={availabilityVariant[product.availability]}>{product.availability}</Badge>
+                    </td>
+                    <td>{formatQuetzales(product.price)}</td>
+                    <td>
+                      <Button
+                        size="sm"
+                        variant="primary"
+                        disabled={isOutOfStock}
+                        onClick={() => addItem(product.id, 1)}
+                      >
+                        {isOutOfStock ? 'No disponible' : 'Agregar'}
+                      </Button>
+                    </td>
+                  </tr>
+                )
+              })}
+              {filtered.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="text-center text-secondary py-4">
+                    No se encontraron productos con esos filtros.
                   </td>
                 </tr>
-              )
-            })}
-            {filtered.length === 0 && (
-              <tr>
-                <td colSpan={7} className="text-center text-secondary py-4">
-                  No se encontraron productos con esos filtros.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </Table>
-      </div>
+              )}
+            </tbody>
+          </Table>
+        </div>
+      )}
     </Container>
   )
 }
