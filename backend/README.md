@@ -3,14 +3,18 @@
 API REST construida con **Node.js + Express + Mongoose**, conectada a un clúster gratuito de **MongoDB Atlas**. Sirve de persistencia real para el frontend React de TecnoCore Guatemala (reemplaza los datos y la autenticación simulada de la Tarea 2/3).
 
 ## Arquitectura de carpetas
-
+## https://erashong-tarea4-tecnocore.netlify.app/
 ```
 backend/
 ├── .env                  # Variables de entorno reales (NO se sube al repo)
 ├── .env.example          # Plantilla pública de variables de entorno
 ├── package.json
+├── netlify/
+│   └── functions/
+│       └── api.js        # Envuelve la app Express con serverless-http para Netlify Functions
 └── src/
-    ├── server.js         # Punto de entrada: configura Express, CORS, rutas y arranca el servidor
+    ├── app.js            # Configura Express, CORS y rutas (sin levantar el servidor)
+    ├── server.js         # Punto de entrada local: conecta a MongoDB y arranca el servidor
     ├── config/
     │   └── db.js         # Conexión a MongoDB Atlas vía Mongoose + manejo de errores de conexión
     ├── models/
@@ -57,32 +61,38 @@ npm run seed            # puebla la colección de productos (una sola vez)
 npm run dev              # levanta el servidor con nodemon en http://localhost:4000
 ```
 
-> Nota: si tu red bloquea el puerto saliente 27017 (frecuente en redes corporativas), la conexión a Atlas fallará localmente aunque el código esté correcto. Prueba desde otra red o espera al despliegue en Render, cuyos servidores no tienen esa restricción.
+> Nota: si tu red bloquea el puerto saliente 27017 (frecuente en redes corporativas), la conexión a Atlas fallará localmente aunque el código esté correcto. Prueba desde otra red o usa la versión publicada en Netlify.
 
 ## Endpoints
 
 ### Autenticación
-| Método | Ruta                  | Body                                    | Respuesta éxito                              |
-|--------|-----------------------|------------------------------------------|-----------------------------------------------|
-| POST   | `/api/auth/register`  | `{ nombre, correo, password }`           | 201 `{ message, user }`                       |
-| POST   | `/api/auth/login`     | `{ correo, password }`                   | 200 `{ message, user }`                       |
+## Endpoints
+
+### Autenticación
+
+| Método | Ruta                                                                                    | Body                           | Respuesta éxito         |
+| ------ | --------------------------------------------------------------------------------------- | ------------------------------ | ----------------------- |
+| POST   | [`/api/auth/register`](https://erashong-tarea4-tecnocore.netlify.app/api/auth/register) | `{ nombre, correo, password }` | 201 `{ message, user }` |
+| POST   | [`/api/auth/login`](https://erashong-tarea4-tecnocore.netlify.app/api/auth/login)       | `{ correo, password }`         | 200 `{ message, user }` |
 
 ### Recursos (productos)
-| Método | Ruta                   | Query / Body                                             | Respuesta éxito         |
-|--------|------------------------|------------------------------------------------------------|---------------------------|
-| GET    | `/api/recursos`        | `?categoria=&q=&featured=&disponibilidad=`                 | 200 `[producto, ...]`     |
-| GET    | `/api/recursos/:id`    | —                                                            | 200 `producto`            |
-| POST   | `/api/recursos`        | `{ code, name, category, price, ... }`                     | 201 `producto`            |
-| PUT    | `/api/recursos/:id`    | campos a actualizar                                         | 200 `producto`            |
-| PATCH  | `/api/recursos/:id`    | campos a actualizar                                         | 200 `producto`            |
-| DELETE | `/api/recursos/:id`    | —                                                            | 200 `{ message, id }`     |
 
-Ver `../postman_collection.json` para ejemplos completos de payloads y casos de error (401, 404, 409).
+| Método | Ruta                                                                                  | Query / Body                               | Respuesta éxito       |
+| ------ | ------------------------------------------------------------------------------------- | ------------------------------------------ | --------------------- |
+| GET    | [`/api/recursos`](https://erashong-tarea4-tecnocore.netlify.app/api/recursos)         | `?categoria=&q=&featured=&disponibilidad=` | 200 `[producto, ...]` |
+| GET    | [`/api/recursos/:id`](https://erashong-tarea4-tecnocore.netlify.app/api/recursos/:id) | —                                          | 200 `producto`        |
+| POST   | [`/api/recursos`](https://erashong-tarea4-tecnocore.netlify.app/api/recursos)         | `{ code, name, category, price, ... }`     | 201 `producto`        |
+| PUT    | [`/api/recursos/:id`](https://erashong-tarea4-tecnocore.netlify.app/api/recursos/:id) | Campos a actualizar                        | 200 `producto`        |
+| PATCH  | [`/api/recursos/:id`](https://erashong-tarea4-tecnocore.netlify.app/api/recursos/:id) | Campos a actualizar                        | 200 `producto`        |
+| DELETE | [`/api/recursos/:id`](https://erashong-tarea4-tecnocore.netlify.app/api/recursos/:id) | —                                          | 200 `{ message, id }` |
 
-## Despliegue en Render
 
-1. Crea un **Web Service** nuevo en Render apuntando a este repositorio, con *Root Directory* = `backend`.
-2. Build command: `npm install`. Start command: `npm start`.
-3. Variables de entorno en Render: `MONGODB_URI`, `CORS_ORIGIN` (la URL de Netlify/Vercel del frontend), `PORT` (Render la inyecta automáticamente, pero el código ya tiene fallback a 4000).
-4. En MongoDB Atlas → Network Access, agrega `0.0.0.0/0` (o las IPs salientes de Render) para que el clúster acepte conexiones desde Render.
-5. Una vez desplegado, actualiza `VITE_API_URL` en el frontend (`.env.production`) con la URL pública de Render + `/api`.
+## Despliegue en Netlify (Functions)
+
+La API se publica junto con el frontend en el sitio `erashong-tarea4-tecnocore`:
+
+- `netlify.toml` (raíz del repo) instala las dependencias del backend (`npm ci --prefix backend`), compila el frontend y empaqueta `backend/netlify/functions/api.js`.
+- Las peticiones a `/api/*` se redirigen a la función, que ejecuta la misma app Express de `src/app.js`. Como frontend y API comparten dominio, `VITE_API_URL=/api` y no hace falta configurar CORS.
+- Variable de entorno en Netlify: `MONGODB_URI` (con el nombre de la base, `.../tecnocore?...`).
+- En MongoDB Atlas → Network Access debe estar permitido `0.0.0.0/0`, porque las funciones no tienen IP fija.
+- Publicar desde la raíz del repo: `npx netlify-cli deploy --build --prod`.
