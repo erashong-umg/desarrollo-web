@@ -1,6 +1,19 @@
 [build]
-  command = "npm run build"
+  # Instala también las dependencias del backend, que usa la función de la API.
+  command = "npm ci --prefix backend && npm run build"
   publish = "dist"
+  functions = "backend/netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["mongoose"]
+
+# La API debe ir antes del fallback de la SPA.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"

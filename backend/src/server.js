@@ -1,31 +1,10 @@
 import 'dotenv/config'
-import express from 'express'
-import cors from 'cors'
+import dns from 'node:dns'
 import { connectDB } from './config/db.js'
-import authRoutes from './routes/authRoutes.js'
-import productoRoutes from './routes/productoRoutes.js'
-import { notFoundHandler, errorHandler } from './middleware/errorHandler.js'
+import app from './app.js'
 
-const app = express()
-
-const allowedOrigins = (process.env.CORS_ORIGIN ?? '').split(',').map((o) => o.trim()).filter(Boolean)
-
-app.use(
-  cors({
-    origin: allowedOrigins.length ? allowedOrigins : true,
-  }),
-)
-app.use(express.json())
-
-app.get('/api', (req, res) => {
-  res.json({ status: 'ok', nombre: 'TecnoCore Guatemala API' })
-})
-
-app.use('/api/auth', authRoutes)
-app.use('/api/recursos', productoRoutes)
-
-app.use(notFoundHandler)
-app.use(errorHandler)
+// Resolver DNS públicos para que las consultas SRV de mongodb+srv funcionen en redes restrictivas.
+dns.setServers(['8.8.8.8', '1.1.1.1'])
 
 const PORT = process.env.PORT || 4000
 
