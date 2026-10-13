@@ -1,14 +1,18 @@
 import { createContext, useContext, useEffect, useReducer } from 'react'
-import { apiPost } from '../services/api'
+import { useNavigate } from 'react-router-dom'
+import { apiPost, setAuthToken, clearAuthToken, SESSION_EXPIRED_EVENT } from '../services/api'
 
 const AuthContext = createContext(null)
 
 const STORAGE_KEY = 'tc_auth_user'
+const DEFAULT_SESSION_EXPIRED_MESSAGE =
+  'Su sesión ya no es válida o ha caducado. Por favor, inicia sesión nuevamente.'
 
 const initialState = {
   user: null,
   loading: true,
   error: null,
+  sessionMessage: null,
 }
 
 function authReducer(state, action) {
@@ -17,6 +21,10 @@ function authReducer(state, action) {
       return { ...state, user: action.payload, loading: false, error: null }
     case 'LOGOUT':
       return { ...state, user: null, loading: false, error: null }
+    case 'SESSION_EXPIRED':
+      return { ...state, user: null, loading: false, error: null, sessionMessage: action.payload }
+    case 'CLEAR_SESSION_MESSAGE':
+      return { ...state, sessionMessage: null }
     case 'SET_LOADING':
       return { ...state, loading: action.payload }
     case 'SET_ERROR':
@@ -30,6 +38,7 @@ function authReducer(state, action) {
 
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState)
+  const navigate = useNavigate()
 
   useEffect(() => {
     try {
@@ -44,10 +53,30 @@ export function AuthProvider({ children }) {
     dispatch({ type: 'SET_LOADING', payload: false })
   }, [])
 
+  // Interceptor global: cuando services/api.js detecta un 401 en una petición
+  // autorizada (token vencido o inválido), cierra la sesión local y redirige a /login.
+  useEffect(() => {
+    function handleSessionExpired(event) {
+      clearAuthToken()
+      try {
+        localStorage.removeItem(STORAGE_KEY)
+      } catch {
+        // Almacenamiento no disponible.
+      }
+      const message = event.detail?.message || DEFAULT_SESSION_EXPIRED_MESSAGE
+      dispatch({ type: 'SESSION_EXPIRED', payload: message })
+      navigate('/login', { replace: true })
+    }
+
+    window.addEventListener(SESSION_EXPIRED_EVENT, handleSessionExpired)
+    return () => window.removeEventListener(SESSION_EXPIRED_EVENT, handleSessionExpired)
+  }, [navigate])
+
   async function login(correo, password) {
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
       const data = await apiPost('/auth/login', { correo, password })
+      setAuthToken(data.token)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data.user))
       dispatch({ type: 'LOGIN', payload: data.user })
       return data.user
@@ -61,6 +90,7 @@ export function AuthProvider({ children }) {
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
       const data = await apiPost('/auth/register', { nombre, correo, password })
+      setAuthToken(data.token)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data.user))
       dispatch({ type: 'LOGIN', payload: data.user })
       return data.user
@@ -71,6 +101,7 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
+    clearAuthToken()
     localStorage.removeItem(STORAGE_KEY)
     dispatch({ type: 'LOGOUT' })
   }
@@ -79,14 +110,20 @@ export function AuthProvider({ children }) {
     dispatch({ type: 'CLEAR_ERROR' })
   }
 
+  function clearSessionMessage() {
+    dispatch({ type: 'CLEAR_SESSION_MESSAGE' })
+  }
+
   const value = {
     user: state.user,
     loading: state.loading,
     error: state.error,
+    sessionMessage: state.sessionMessage,
     login,
     register,
     logout,
     clearError,
+    clearSessionMessage,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

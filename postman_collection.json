@@ -1,12 +1,13 @@
 {
   "info": {
-    "name": "TecnoCore Guatemala - API Tarea 4",
-    "description": "Colección de pruebas para la API REST (Express + MongoDB Atlas) de TecnoCore Guatemala. Importar en Postman o Thunder Client. Configura la variable de entorno {{baseUrl}} apuntando a http://localhost:4000/api en desarrollo o a la URL de Render en producción.",
+    "name": "TecnoCore Guatemala - API Tarea 5 (JWT)",
+    "description": "Colección de pruebas para la API REST (Express + MongoDB Atlas) de TecnoCore Guatemala, con autenticación stateless por JSON Web Token (expiración de 5 minutos). Importar en Postman o Thunder Client. Configura {{baseUrl}} apuntando a http://localhost:4000/api en desarrollo o a la URL pública en producción.\n\nFlujo recomendado:\n1. Ejecutar 'Auth > Login correcto'. El test script guarda el token recibido en la variable de colección {{token}}.\n2. Ejecutar 'Recursos (Productos) > Protegidos > Crear producto - token válido (201)'. Usa automáticamente {{token}} en el header Authorization.\n3. Para la evidencia de expiración: ejecutar el login, anotar la hora, esperar más de 5 minutos (política JWT_EXPIRES_IN=5m) y volver a ejecutar 'Crear producto - token expirado (401)' con el mismo {{token}} ya capturado. La API responde 401 con { \"error\": \"token_expired\", ... }.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     { "key": "baseUrl", "value": "http://localhost:4000/api" },
-    { "key": "productoId", "value": "" }
+    { "key": "productoId", "value": "" },
+    { "key": "token", "value": "" }
   ],
   "item": [
     {
@@ -38,6 +39,24 @@
         },
         {
           "name": "Login correcto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "pm.test('Responde 200 con token', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(data.token).to.be.a('string');",
+                  "});",
+                  "if (data.token) {",
+                  "  pm.collectionVariables.set('token', data.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -66,77 +85,154 @@
       "name": "Recursos (Productos)",
       "item": [
         {
-          "name": "Listar todos los productos",
-          "request": {
-            "method": "GET",
-            "url": "{{baseUrl}}/recursos"
-          }
-        },
-        {
-          "name": "Filtrar por categoría",
-          "request": {
-            "method": "GET",
-            "url": "{{baseUrl}}/recursos?categoria=laptops"
-          }
-        },
-        {
-          "name": "Buscar por texto (q)",
-          "request": {
-            "method": "GET",
-            "url": "{{baseUrl}}/recursos?q=ryzen"
-          }
-        },
-        {
-          "name": "Filtrar destacados",
-          "request": {
-            "method": "GET",
-            "url": "{{baseUrl}}/recursos?featured=true"
-          }
-        },
-        {
-          "name": "Obtener producto por id",
-          "request": {
-            "method": "GET",
-            "url": "{{baseUrl}}/recursos/{{productoId}}"
-          }
-        },
-        {
-          "name": "Obtener producto inexistente (404)",
-          "request": {
-            "method": "GET",
-            "url": "{{baseUrl}}/recursos/000000000000000000000000"
-          }
-        },
-        {
-          "name": "Crear producto",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": "{{baseUrl}}/recursos",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"code\": \"TC-900\",\n  \"name\": \"Webcam Full HD\",\n  \"specs\": \"1080p · micrófono integrado\",\n  \"category\": \"perifericos\",\n  \"availability\": \"En existencia\",\n  \"price\": 295,\n  \"featured\": false,\n  \"description\": \"Webcam para videollamadas con enfoque automático.\",\n  \"delivery\": \"Entrega estimada de 2 a 4 días hábiles.\",\n  \"specTable\": [\n    { \"label\": \"Resolución\", \"value\": \"1920x1080\" },\n    { \"label\": \"Conexión\", \"value\": \"USB\" }\n  ],\n  \"thumbnail\": \"\"\n}"
+          "name": "Lectura pública",
+          "item": [
+            {
+              "name": "Listar todos los productos",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/recursos"
+              }
+            },
+            {
+              "name": "Filtrar por categoría",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/recursos?categoria=laptops"
+              }
+            },
+            {
+              "name": "Buscar por texto (q)",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/recursos?q=ryzen"
+              }
+            },
+            {
+              "name": "Filtrar destacados",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/recursos?featured=true"
+              }
+            },
+            {
+              "name": "Obtener producto por id",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/recursos/{{productoId}}"
+              }
+            },
+            {
+              "name": "Obtener producto inexistente (404)",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/recursos/000000000000000000000000"
+              }
             }
-          }
+          ]
         },
         {
-          "name": "Actualizar producto (PUT)",
-          "request": {
-            "method": "PUT",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": "{{baseUrl}}/recursos/{{productoId}}",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"price\": 3295,\n  \"availability\": \"Últimas unidades\"\n}"
+          "name": "Protegidos (requieren Authorization: Bearer <token>)",
+          "item": [
+            {
+              "name": "Crear producto - sin token (401 unauthorized)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{baseUrl}}/recursos",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"TC-900\",\n  \"name\": \"Webcam Full HD\",\n  \"category\": \"perifericos\",\n  \"price\": 295\n}"
+                }
+              }
+            },
+            {
+              "name": "Crear producto - token válido (201)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Responde 201 con el producto creado', function () {",
+                      "  pm.response.to.have.status(201);",
+                      "});",
+                      "const data = pm.response.json();",
+                      "if (data && data.id) {",
+                      "  pm.collectionVariables.set('productoId', data.id);",
+                      "}"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Authorization", "value": "Bearer {{token}}" }
+                ],
+                "url": "{{baseUrl}}/recursos",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"TC-900\",\n  \"name\": \"Webcam Full HD\",\n  \"specs\": \"1080p · micrófono integrado\",\n  \"category\": \"perifericos\",\n  \"availability\": \"En existencia\",\n  \"price\": 295,\n  \"featured\": false,\n  \"description\": \"Webcam para videollamadas con enfoque automático.\",\n  \"delivery\": \"Entrega estimada de 2 a 4 días hábiles.\",\n  \"specTable\": [\n    { \"label\": \"Resolución\", \"value\": \"1920x1080\" },\n    { \"label\": \"Conexión\", \"value\": \"USB\" }\n  ],\n  \"thumbnail\": \"\"\n}"
+                }
+              }
+            },
+            {
+              "name": "Crear producto - token expirado (401 token_expired)",
+              "description": "Ejecutar este request reutilizando el {{token}} capturado en 'Login correcto', pero esperando más de 5 minutos después del login (JWT_EXPIRES_IN=5m). Debe responder 401 con { \"error\": \"token_expired\", \"message\": \"La sesión ha expirado o ya no es válida. Por favor, inicie sesión nuevamente.\" }.",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const data = pm.response.json();",
+                      "pm.test('Responde 401 token_expired', function () {",
+                      "  pm.response.to.have.status(401);",
+                      "  pm.expect(data.error).to.eql('token_expired');",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Authorization", "value": "Bearer {{token}}" }
+                ],
+                "url": "{{baseUrl}}/recursos",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"TC-901\",\n  \"name\": \"Micrófono USB\",\n  \"category\": \"perifericos\",\n  \"price\": 199\n}"
+                }
+              }
+            },
+            {
+              "name": "Actualizar producto (PUT) - token válido",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Authorization", "value": "Bearer {{token}}" }
+                ],
+                "url": "{{baseUrl}}/recursos/{{productoId}}",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"price\": 3295,\n  \"availability\": \"Últimas unidades\"\n}"
+                }
+              }
+            },
+            {
+              "name": "Eliminar producto - token válido",
+              "request": {
+                "method": "DELETE",
+                "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+                "url": "{{baseUrl}}/recursos/{{productoId}}"
+              }
             }
-          }
-        },
-        {
-          "name": "Eliminar producto",
-          "request": {
-            "method": "DELETE",
-            "url": "{{baseUrl}}/recursos/{{productoId}}"
-          }
+          ]
         }
       ]
     }
