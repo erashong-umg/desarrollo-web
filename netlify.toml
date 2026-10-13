@@ -1,6 +1,10 @@
 [build]
   # Instala también las dependencias del backend, que usa la función de la API.
-  command = "npm ci --prefix backend && npm run build"
+  # --omit=dev evita instalar nodemon (solo se usa en desarrollo local).
+  # Se usa "cd backend" (no --prefix) porque npm 11 bloquea con EALLOWSCRIPTS
+  # las instalaciones "project-scoped" cuando --prefix apunta a un proyecto
+  # distinto al directorio actual.
+  command = "cd backend && npm ci --omit=dev && cd .. && npm run build"
   publish = "dist"
   functions = "backend/netlify/functions"
 

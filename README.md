@@ -11,7 +11,8 @@ evolucionó a una arquitectura full-stack real: un backend propio en **Node.js +
 
 | Recurso | Enlace |
 |---|---|
-| Sitio publicado (Tarea 5, con JWT) | _Pendiente de publicar — ver sección "Despliegue"_ |
+| Sitio publicado (Tarea 5, con JWT) | [erashong-tarea5-tecnocore.netlify.app](https://erashong-tarea5-tecnocore.netlify.app/) |
+| API REST Tarea 5 (estado) | [erashong-tarea5-tecnocore.netlify.app/api](https://erashong-tarea5-tecnocore.netlify.app/api) |
 | Sitio publicado (Tarea 4) | [erashong-tarea4-tecnocore.netlify.app](https://erashong-tarea4-tecnocore.netlify.app/) |
 | API REST (estado) | [erashong-tarea4-tecnocore.netlify.app/api](https://erashong-tarea4-tecnocore.netlify.app/api) |
 | Listado de productos (JSON) | [erashong-tarea4-tecnocore.netlify.app/api/recursos](https://erashong-tarea4-tecnocore.netlify.app/api/recursos) |
@@ -179,14 +180,21 @@ npm run dev            # API en http://localhost:4000/api
 
 ## Despliegue en Netlify
 
-- **Sitio:** `erashong-tarea4-tecnocore`
-- **Build command:** `npm ci --prefix backend && npm run build` (definido en `netlify.toml`)
+- **Sitio (Tarea 5):** `erashong-tarea5-tecnocore` — https://erashong-tarea5-tecnocore.netlify.app
+- **Sitio (Tarea 4, sin JWT):** `erashong-tarea4-tecnocore`
+- **Build command:** `cd backend && npm ci --omit=dev && cd .. && npm run build` (definido en `netlify.toml`).
+  Se usa `cd backend` en vez de `npm ci --prefix backend` porque npm 11 bloquea con `EALLOWSCRIPTS` las
+  instalaciones "project-scoped" cuando `--prefix` apunta a un proyecto distinto al directorio actual; y
+  `--omit=dev` evita instalar `nodemon` (solo se usa en desarrollo local).
 - **Publish directory:** `dist` · **Functions directory:** `backend/netlify/functions`
 - **Variables de entorno:** `MONGODB_URI` (cadena de MongoDB Atlas con la base `tecnocore`), `JWT_SECRET` y
   `JWT_EXPIRES_IN=5m` (Tarea 5)
 - `netlify.toml` redirige `/api/*` a la función de la API y el resto (`/* -> /index.html`) a React Router,
   para que las rutas funcionen al recargar o compartir un enlace directo.
-- Publicar desde la raíz del repo: `npx netlify-cli deploy --build --prod`
+- Publicar desde la raíz del repo: `netlify deploy --build --prod` (con el binario de `netlify-cli` instalado
+  globalmente; evitar `npx netlify-cli ...` si el entorno tiene configurado `allow-scripts` en el `.npmrc`
+  global, porque `npx` reexporta esa config como variable de entorno a los procesos hijos y el `npm ci` del
+  build la hereda, disparando el mismo error `EALLOWSCRIPTS`).
 
 > **Nota sobre el despliegue separado (Tarea 5):** el criterio de entrega pide un frontend en Netlify/Vercel y
 > un backend independiente en Render/Railway. Este repositorio sigue publicando ambos juntos en el mismo sitio

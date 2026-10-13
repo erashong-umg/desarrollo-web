@@ -9,7 +9,7 @@ TecnoCore Guatemala — academic e-commerce (UMG, Desarrollo Web). Active branch
 - **Root (`/`)** — React 18 + Vite 5 frontend, React-Bootstrap, React Router 6.
 - **`backend/`** — Node.js (ESM) + Express 4 + Mongoose 8 REST API on MongoDB Atlas.
 
-Both are deployed together to the Netlify site `erashong-tarea4-tecnocore` (https://erashong-tarea4-tecnocore.netlify.app). Each Tarea/HojaTrabajo has its own Netlify site — don't redeploy older ones. The folder is linked via `.netlify/state.json` (not connected to GitHub, so deploy manually).
+Both are deployed together to the Netlify site `erashong-tarea5-tecnocore` (https://erashong-tarea5-tecnocore.netlify.app). The pre-JWT `Tarea4` branch is still live at `erashong-tarea4-tecnocore`. Each Tarea/HojaTrabajo has its own Netlify site — don't redeploy older ones. The folder is linked via `.netlify/state.json` (gitignored, not connected to GitHub, so deploy manually with `netlify deploy --build --prod` — install `netlify-cli` globally and call the `netlify` binary directly; invoking it through `npx` re-exports this machine's global `allow-scripts` npmrc setting as an env var to child processes, which makes the nested `npm ci` in `build.command` fail with `EALLOWSCRIPTS`).
 
 Code, identifiers, comments, UI text and API messages are in **Spanish**.
 
