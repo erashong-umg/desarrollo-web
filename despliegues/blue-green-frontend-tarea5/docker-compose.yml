@@ -1,0 +1,48 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: bg-mongo
+    networks: [bg-net]
+
+  backend:
+    image: tienda-backend:2.0.0
+    container_name: bg-backend
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/tecnocore
+      JWT_SECRET: clave-solo-para-demostracion-local-no-usar-en-produccion
+      CORS_ORIGIN: http://localhost:8082
+      PORT: 4000
+    depends_on: [mongo]
+    ports:
+      - "8084:4000"
+    networks: [bg-net]
+
+  frontend-blue:
+    image: tienda-frontend:1.0.0
+    container_name: bg-frontend-blue
+    expose:
+      - "80"
+    networks: [bg-net]
+
+  frontend-green:
+    image: tienda-frontend:2.0.0
+    container_name: bg-frontend-green
+    expose:
+      - "80"
+    networks: [bg-net]
+
+  proxy:
+    image: nginx:1.27-alpine
+    container_name: bg-proxy
+    volumes:
+      - ./nginx/active.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8082:80"
+    depends_on:
+      - frontend-blue
+      - frontend-green
+    networks: [bg-net]
+
+networks:
+  bg-net:
+    driver: bridge

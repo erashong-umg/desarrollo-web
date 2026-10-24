@@ -1,0 +1,189 @@
+import { useEffect, useState } from 'react'
+import { Alert, Badge, Button, Container, Form, Spinner, Table } from 'react-bootstrap'
+import { Link, useSearchParams } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
+import { categories, formatQuetzales } from '../data/products'
+import { getProductThumbnail } from '../utils/productImages'
+import { apiGet } from '../services/api'
+
+const availabilityVariant = {
+  'En existencia': 'success',
+  'Últimas unidades': 'warning',
+  Agotado: 'danger',
+}
+
+export default function Catalogo() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const { addItem } = useCart()
+  const [filtered, setFiltered] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  const query = searchParams.get('q') ?? ''
+  const category = searchParams.get('categoria') ?? ''
+
+  useEffect(() => {
+    let cancelled = false
+    setLoading(true)
+    setError(null)
+
+    const params = new URLSearchParams()
+    if (category) {
+      params.set('categoria', category)
+    }
+    if (query) {
+      params.set('q', query)
+    }
+    const queryString = params.toString()
+
+    apiGet(`/recursos${queryString ? `?${queryString}` : ''}`)
+      .then((data) => {
+        if (!cancelled) {
+          setFiltered(data)
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          setError(err.message)
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [query, category])
+
+  function handleSearchChange(event) {
+    const next = new URLSearchParams(searchParams)
+    if (event.target.value) {
+      next.set('q', event.target.value)
+    } else {
+      next.delete('q')
+    }
+    setSearchParams(next)
+  }
+
+  function handleCategoryChange(event) {
+    const next = new URLSearchParams(searchParams)
+    if (event.target.value) {
+      next.set('categoria', event.target.value)
+    } else {
+      next.delete('categoria')
+    }
+    setSearchParams(next)
+  }
+
+  return (
+    <Container className="py-4">
+      <h1 className="h2 mb-3">Catálogo de computadoras y componentes</h1>
+      <p className="text-secondary">
+        Consulta nuestra selección de productos en {categories.length} categorías.
+      </p>
+
+      <Form className="tc-panel p-3 mb-4" role="search">
+        <Form.Group className="mb-3" controlId="buscar">
+          <Form.Label>Producto o especificación</Form.Label>
+          <Form.Control
+            type="search"
+            placeholder="Ejemplo: 16 GB RAM"
+            value={query}
+            onChange={handleSearchChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="filtro-categoria">
+          <Form.Label>Categoría</Form.Label>
+          <Form.Select value={category} onChange={handleCategoryChange}>
+            <option value="">Todas</option>
+            {categories.map((cat) => (
+              <option key={cat.slug} value={cat.slug}>
+                {cat.name}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      </Form>
+
+      {error && <Alert variant="danger">{error}</Alert>}
+
+      {loading ? (
+        <div className="d-flex align-items-center gap-2">
+          <Spinner animation="border" size="sm" /> Cargando productos…
+        </div>
+      ) : (
+        <div className="table-responsive">
+          <Table hover>
+            <caption>{filtered.length} productos encontrados</caption>
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Código</th>
+                <th scope="col">Producto y especificaciones</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Disponibilidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((product) => {
+                const isOutOfStock = product.availability === 'Agotado'
+                const thumbnail = getProductThumbnail(product.thumbnail)
+                return (
+                  <tr key={product.id}>
+                    <td>
+                      {thumbnail && (
+                        <img
+                          src={thumbnail}
+                          alt=""
+                          className="thumb"
+                          width={48}
+                          height={48}
+                          style={{ objectFit: 'cover', borderRadius: 'var(--radius)' }}
+                        />
+                      )}
+                    </td>
+                    <td>{product.code}</td>
+                    <td>
+                      <Link to={`/producto/${product.id}`} className="fw-bold text-decoration-none">
+                        {product.name}
+                      </Link>
+                      <br />
+                      <small className="text-secondary">{product.specs}</small>
+                    </td>
+                    <td>{categories.find((c) => c.slug === product.category)?.name}</td>
+                    <td>
+                      <Badge bg={availabilityVariant[product.availability]}>{product.availability}</Badge>
+                    </td>
+                    <td>{formatQuetzales(product.price)}</td>
+                    <td>
+                      <Button
+                        size="sm"
+                        variant="primary"
+                        disabled={isOutOfStock}
+                        onClick={() => addItem(product.id, 1)}
+                      >
+                        {isOutOfStock ? 'No disponible' : 'Agregar'}
+                      </Button>
+                    </td>
+                  </tr>
+                )
+              })}
+              {filtered.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="text-center text-secondary py-4">
+                    No se encontraron productos con esos filtros.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+        </div>
+      )}
+    </Container>
+  )
+}
