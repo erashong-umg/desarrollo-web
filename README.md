@@ -546,6 +546,13 @@ Ningún archivo `.env` real, cadena de conexión de MongoDB Atlas ni `JWT_SECRET
 ```
 tarea6/
 ├── README.md                        (este informe)
+├── docs/
+│   ├── manual-tecnico.md            (misma versión que este informe)
+│   └── diagramas/
+│       ├── escenario-a-api.drawio
+│       ├── escenario-a-api.png
+│       ├── escenario-b-frontend.drawio
+│       └── escenario-b-frontend.png
 ├── apps/
 │   ├── api-tarea4/                 (Dockerfile, server.js, db.js, config.js, .env.example)
 │   └── tienda-tarea5/
